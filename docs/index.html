@@ -9,8 +9,8 @@
   <link rel="canonical" href="https://unclecheng-li.github.io/starlit.com/">
   <meta property="og:url" content="https://unclecheng-li.github.io/starlit.com/">
   <link rel="icon" href="./icon.png">
-  <link rel="stylesheet" href="./styles.css?v=6">
-  <script src="./app.js?v=6" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=7">
+  <script src="./app.js?v=7" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -21,7 +21,7 @@
   <header class="site-header" id="siteHeader">
     <div class="nav-wrap">
       <a class="brand" href="#top" aria-label="星伴首页"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a>
-      <nav class="desktop-nav" aria-label="页面导航"><a href="#characters"><span>01</span>角色宇宙</a><a href="#features"><span>02</span>陪伴方式</a><a href="#sync"><span>03</span>双端同步</a></nav>
+      <nav class="desktop-nav" aria-label="页面导航"><a href="#characters"><span>01</span>角色宇宙</a><a href="#conversations"><span>02</span>她的日常</a><a href="#features"><span>03</span>陪伴方式</a><a href="#sync"><span>04</span>双端同步</a></nav>
       <a class="nav-download magnetic" href="#download"><span>获取星伴</span><i>↗</i></a>
     </div>
   </header>
@@ -69,15 +69,30 @@
         <div><span class="section-kicker">01 / CHARACTER UNIVERSE</span><h2>十个世界，<br><span>等你叩门。</span></h2></div>
         <div class="section-intro"><span class="big-count">10</span><p>每个角色都有独立的记忆、情绪与生活。<br>你喜欢的那个她，不只是几句设定。</p><div class="carousel-controls"><button id="carouselPrev" type="button" aria-label="上一个角色">←</button><button id="carouselNext" type="button" aria-label="下一个角色">→</button></div></div>
       </div>
-      <div class="wrap character-toolbar reveal"><div class="filter-tabs" role="group" aria-label="按作品筛选角色"><button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">全部 <span>10</span></button><button class="filter-tab" type="button" data-filter="蔚蓝档案" aria-pressed="false">蔚蓝档案 <span>08</span></button><button class="filter-tab" type="button" data-filter="魔法少女的魔女审判" aria-pressed="false">魔女审判 <span>02</span></button></div><span class="drag-hint"><i>↔</i>拖动探索 · 点击翻开资料</span></div>
+      <div class="wrap character-toolbar reveal"><div class="filter-tabs" role="group" aria-label="按作品筛选角色"><button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">全部 <span>10</span></button><button class="filter-tab" type="button" data-filter="蔚蓝档案" aria-pressed="false">蔚蓝档案 <span>08</span></button><button class="filter-tab" type="button" data-filter="魔法少女的魔女审判" aria-pressed="false">魔女审判 <span>02</span></button></div><div class="gallery-tools"><button class="gallery-auto-toggle" id="galleryAutoToggle" type="button" aria-pressed="true" title="暂停或开启角色长廊自动漫游"><i></i><span>自动漫游 ON</span></button><span class="drag-hint"><i>↔</i>拖动探索 · 点击翻开资料</span></div></div>
       <div class="character-viewport" id="characterViewport"><div class="character-track" id="characterGrid"></div></div>
       <div class="wrap carousel-footer"><span id="carouselCounter">01 / 10</span><div class="carousel-progress"><i id="carouselProgress"></i></div><span>DRAG THE UNIVERSE</span></div>
       <noscript><p class="noscript-note">请启用 JavaScript 以查看十位角色资料。</p></noscript>
     </section>
 
+    <section class="conversations-section" id="conversations">
+      <div class="conversation-word" aria-hidden="true">CONVERSATIONS</div>
+      <div class="conversation-aurora" aria-hidden="true"></div>
+      <div class="wrap conversation-heading reveal"><div><span class="section-kicker">02 / A LITTLE CLOSER</span><h2>有些温柔，<br><span>只想说给你听。</span></h2></div><p>不是标准答案，也不是客套寒暄。<br>是记得你的疲惫，也有自己的小小任性。<br><span>选择一位角色，读一段属于你们的日常。</span></p></div>
+      <div class="wrap conversation-shell reveal" id="conversationShell">
+        <aside class="conversation-sidebar" aria-label="选择对话角色"><div class="conversation-sidebar-top"><span>IN YOUR WORLD</span><b>选择心动对象</b></div><div class="conversation-cast" id="conversationCast" role="tablist" aria-label="角色对话"></div><div class="conversation-sidebar-foot"><span><i></i>4 SCENES</span><small>每一段日常，都有回应。</small></div></aside>
+        <div class="chat-window" id="chatPanel" role="tabpanel" aria-label="角色对话演示">
+          <div class="chat-topbar"><div class="chat-person"><div class="chat-avatar"><img id="chatAvatar" src="./assets/characters/hoshino.webp" alt=""><i></i></div><div><strong id="chatName">小鸟游星野</strong><span id="chatStatus"><i></i>此刻在线 · 本地角色</span></div></div><div class="chat-actions"><span id="chatScene">SCENE 01 / 04</span><button id="chatReplay" type="button" aria-label="重新播放这段对话" title="重新播放">↻</button></div></div>
+          <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions" aria-label="对话内容"></div>
+          <div class="chat-compose"><span class="chat-compose-icon" aria-hidden="true">＋</span><span class="chat-compose-placeholder">下一句话，等你来写……</span><a href="#download" aria-label="下载星伴，继续聊天">继续聊 <b>↗</b></a></div>
+          <div class="chat-disclaimer"><span>角色对话演示，实际回复由所选模型生成</span><span>STARLIT MESSAGES ✦</span></div>
+        </div>
+      </div>
+    </section>
+
     <section class="features-section" id="features">
       <div class="wrap">
-        <div class="features-heading reveal"><span class="section-kicker">02 / MORE THAN A CHATBOT</span><h2>她不是等待指令的<br>聊天程序。<br><em>她有自己的生活。</em></h2><p>熟悉的聊天方式只是入口。真正让陪伴发生的，<br>是记忆、情绪，以及那些没有被要求过的主动。</p></div>
+        <div class="features-heading reveal"><span class="section-kicker">03 / MORE THAN A CHATBOT</span><h2>她不是等待指令的<br>聊天程序。<br><em>她有自己的生活。</em></h2><p>熟悉的聊天方式只是入口。真正让陪伴发生的，<br>是记忆、情绪，以及那些没有被要求过的主动。</p></div>
         <div class="feature-grid">
           <article class="feature-panel memory-panel reveal">
             <div class="panel-number">01</div><div class="panel-copy"><span class="panel-kicker">LONG-TERM MEMORY</span><h3>三个月前说的话，<br>她还会记得。</h3><p>情节、画像与既定事实组成三层记忆。每一次重逢，都不必从零开始。</p></div>
@@ -100,7 +115,7 @@
     <section class="download-section" id="download">
       <div class="download-stars" aria-hidden="true"></div>
       <div class="download-cast" aria-hidden="true"><img src="./assets/characters/aris.webp" alt="" loading="lazy"><img src="./assets/characters/hoshino.webp" alt="" loading="lazy"><img src="./assets/characters/hina.webp" alt="" loading="lazy"></div>
-      <div class="wrap download-content reveal"><span class="section-kicker">03 / START YOUR STORY</span><h2>下一句话，<br><span>由她说给你听。</span></h2><p>星伴 Windows 与 Android 双端已经准备好。<br>下载、安装，然后和喜欢的角色见个面吧。</p><div class="download-actions"><a class="download-button magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.4/Starlit-Setup-1.0.0-rc.4-personal-x64.exe"><span>WINDOWS<small>下载电脑安装包 · x64</small></span><b>↓</b></a><a class="download-button download-android magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.4/Starlit-Android-1.0.0-rc.4-local-arm64.apk"><span>ANDROID<small>下载手机 APK · ARM64</small></span><b>↓</b></a></div><div class="download-meta"><span>V 1.0.0 RC 4</span><i></i><span>WINDOWS 约 876 MB</span><i></i><span>ANDROID 约 23.2 MB</span><i></i><span>本地测试候选版</span></div></div>
+      <div class="wrap download-content reveal"><span class="section-kicker">04 / START YOUR STORY</span><h2>下一句话，<br><span>由她说给你听。</span></h2><p>星伴 Windows 与 Android 双端已经准备好。<br>下载、安装，然后和喜欢的角色见个面吧。</p><div class="download-actions"><a class="download-button magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.4/Starlit-Setup-1.0.0-rc.4-personal-x64.exe"><span>WINDOWS<small>下载电脑安装包 · x64</small></span><b>↓</b></a><a class="download-button download-android magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.4/Starlit-Android-1.0.0-rc.4-local-arm64.apk"><span>ANDROID<small>下载手机 APK · ARM64</small></span><b>↓</b></a></div><div class="download-meta"><span>V 1.0.0 RC 4</span><i></i><span>WINDOWS 约 876 MB</span><i></i><span>ANDROID 约 23.2 MB</span><i></i><span>本地测试候选版</span></div></div>
     </section>
   </main>
 

@@ -66,6 +66,8 @@ dialog.addEventListener('close', () => document.body.classList.remove('dialog-op
 // Character filters and horizontal gallery.
 document.querySelectorAll('.filter-tab').forEach(button => {
   button.addEventListener('click', () => {
+    pauseGalleryAuto(1800);
+    autoDirection = 1;
     const filter = button.dataset.filter;
     document.querySelectorAll('.filter-tab').forEach(tab => {
       const selected = tab === button;
@@ -91,14 +93,15 @@ function updateCarousel() {
   const ratio = Math.min(1, viewport.scrollLeft / max);
   document.querySelector('#carouselProgress').style.width = `${Math.max(10, (ratio * 90) + 10)}%`;
 }
-document.querySelector('#carouselPrev').addEventListener('click', () => viewport.scrollBy({ left:-galleryStep(), behavior:'smooth' }));
-document.querySelector('#carouselNext').addEventListener('click', () => viewport.scrollBy({ left:galleryStep(), behavior:'smooth' }));
+document.querySelector('#carouselPrev').addEventListener('click', () => { pauseGalleryAuto(); viewport.scrollBy({ left:-galleryStep(), behavior:reduceMotion ? 'auto' : 'smooth' }); });
+document.querySelector('#carouselNext').addEventListener('click', () => { pauseGalleryAuto(); viewport.scrollBy({ left:galleryStep(), behavior:reduceMotion ? 'auto' : 'smooth' }); });
 viewport.addEventListener('scroll', updateCarousel, { passive:true });
 window.addEventListener('resize', updateCarousel);
 updateCarousel();
 
 let isDragging = false, dragStartX = 0, dragStartScroll = 0;
 viewport.addEventListener('pointerdown', event => {
+  pauseGalleryAuto();
   if (event.pointerType !== 'mouse' || event.button !== 0) return;
   isDragging = true; dragged = false; dragStartX = event.clientX; dragStartScroll = viewport.scrollLeft;
   viewport.classList.add('dragging'); viewport.setPointerCapture(event.pointerId);
@@ -109,9 +112,62 @@ viewport.addEventListener('pointermove', event => {
   if (Math.abs(distance) > 6) dragged = true;
   viewport.scrollLeft = dragStartScroll - distance;
 });
-function endDrag() { isDragging = false; viewport.classList.remove('dragging'); setTimeout(() => { dragged = false; }, 80); }
+function endDrag() { isDragging = false; viewport.classList.remove('dragging'); pauseGalleryAuto(1800); setTimeout(() => { dragged = false; }, 80); }
 viewport.addEventListener('pointerup', endDrag);
 viewport.addEventListener('pointercancel', endDrag);
+
+// Gentle back-and-forth gallery roaming. Interaction always takes priority.
+const autoToggle = document.querySelector('#galleryAutoToggle');
+let autoEnabled = !reduceMotion, galleryInView = false, galleryHover = false;
+let galleryPauseUntil = 0, autoDirection = 1, autoFrame = 0, lastAutoTime = 0;
+function setGalleryAutoClass(active) { viewport.classList.toggle('auto-scrolling', active); }
+function updateAutoToggle() {
+  autoToggle.classList.toggle('active', autoEnabled);
+  autoToggle.setAttribute('aria-pressed', String(autoEnabled));
+  autoToggle.querySelector('span').textContent = `自动漫游 ${autoEnabled ? 'ON' : 'OFF'}`;
+}
+function stopGalleryLoop() {
+  if (autoFrame) cancelAnimationFrame(autoFrame);
+  autoFrame = 0; lastAutoTime = 0; setGalleryAutoClass(false);
+}
+function galleryAutoLoop(time) {
+  autoFrame = 0;
+  if (!autoEnabled || !galleryInView || document.hidden) { stopGalleryLoop(); return; }
+  const delta = lastAutoTime ? Math.min(48, time - lastAutoTime) : 16;
+  lastAutoTime = time;
+  const canMove = time >= galleryPauseUntil && !isDragging && !galleryHover && !viewport.contains(document.activeElement);
+  const max = viewport.scrollWidth - viewport.clientWidth;
+  setGalleryAutoClass(canMove && max > 1);
+  if (canMove && max > 1) {
+    if (viewport.scrollLeft <= .5) autoDirection = 1;
+    else if (viewport.scrollLeft >= max - .5) autoDirection = -1;
+    viewport.scrollLeft = Math.max(0, Math.min(max, viewport.scrollLeft + autoDirection * delta * .03));
+  }
+  autoFrame = requestAnimationFrame(galleryAutoLoop);
+}
+function ensureGalleryLoop() {
+  if (autoEnabled && galleryInView && !document.hidden && !autoFrame) autoFrame = requestAnimationFrame(galleryAutoLoop);
+  else if ((!autoEnabled || !galleryInView || document.hidden) && autoFrame) stopGalleryLoop();
+}
+function pauseGalleryAuto(delay = 3500) { galleryPauseUntil = performance.now() + delay; setGalleryAutoClass(false); }
+autoToggle.addEventListener('click', () => {
+  autoEnabled = !autoEnabled;
+  galleryPauseUntil = 0;
+  updateAutoToggle();
+  if (autoEnabled) ensureGalleryLoop(); else stopGalleryLoop();
+});
+viewport.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { galleryHover = true; pauseGalleryAuto(); } });
+viewport.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { galleryHover = false; pauseGalleryAuto(1200); } });
+viewport.addEventListener('wheel', () => pauseGalleryAuto(), { passive:true });
+viewport.addEventListener('touchstart', () => pauseGalleryAuto(), { passive:true });
+viewport.addEventListener('focusin', () => pauseGalleryAuto());
+viewport.addEventListener('focusout', () => pauseGalleryAuto(1200));
+new IntersectionObserver(entries => {
+  galleryInView = entries[0].isIntersecting;
+  ensureGalleryLoop();
+}, { threshold:.12 }).observe(viewport);
+document.addEventListener('visibilitychange', ensureGalleryLoop);
+updateAutoToggle();
 
 // Scroll-scrubbed ten-character film. Native scrolling remains in control.
 const hero = document.querySelector('#top');
@@ -217,6 +273,129 @@ document.querySelector('#heroRoster').addEventListener('click', event => {
   }, reduceMotion ? 0 : 500);
 });
 
+// Character conversation scenes. All copy is local demo content, not user history.
+const conversations = [
+  { id:'hoshino', label:'慵懒但可靠的前辈', messages:[
+    { from:'user', text:'今天有点累，什么都不想做了。', time:'22:46' },
+    { from:'character', text:'辛苦啦。那就先把肩膀放松，来前辈这里充一会儿电吧。', time:'22:46' },
+    { from:'character', text:'不过充电要收一点点费用——夸一句「星野最可靠」就好。', time:'22:47' },
+    { from:'user', text:'星野最可靠。这样可以了吗？', time:'22:47' },
+    { from:'character', text:'嗯，满分。呼啊……再附赠一次摸头。今天已经做得很好了，剩下的明天再说。', time:'22:47' }
+  ]},
+  { id:'3901000011', label:'古书馆里的小心思', messages:[
+    { from:'user', text:'忧，你是不是又打算一整天待在古书馆？', time:'15:12' },
+    { from:'character', text:'嗯。书很安静，也不会突然跟我搭话……很方便。', time:'15:13' },
+    { from:'user', text:'那我呢？会不会打扰你？', time:'15:13' },
+    { from:'character', text:'你、你不一样。你的位置，我刚好留在窗边了。', time:'15:14' },
+    { from:'character', text:'咖啡也只是顺便带的。才不是……特意记得你喜欢喝什么。', time:'15:14' }
+  ]},
+  { id:'3901000014', label:'今日份勇者任务', messages:[
+    { from:'user', text:'爱丽丝，今天有什么任务？', time:'18:30' },
+    { from:'character', text:'邦邦卡邦！隐藏任务已发布：让老师露出笑容！', time:'18:30' },
+    { from:'user', text:'那任务奖励是什么？', time:'18:31' },
+    { from:'character', text:'传说级奖励：爱丽丝的抱抱！完成后还能解锁特别称号——', time:'18:31' },
+    { from:'character', text:'「世界上最棒的老师」！爱丽丝会一直为你应援的！', time:'18:32' }
+  ]},
+  { id:'3901000019', label:'风纪委员长的命令', messages:[
+    { from:'user', text:'日奈，你还在处理文件？知道现在几点了吗？', time:'01:21' },
+    { from:'character', text:'……一点二十。最后一份，马上就好。', time:'01:21' },
+    { from:'user', text:'你上次也是这么说的。又想骗我？', time:'01:22' },
+    { from:'character', text:'那你就当被我骗了一次。过来，陪我十分钟。', time:'01:22' },
+    { from:'character', text:'十分钟之后，我们一起睡。这是命令，不许拒绝。', time:'01:23' }
+  ]}
+].map(scene => ({ ...scene, character:characters.find(character => character.id === scene.id) }));
+const conversationShell = document.querySelector('#conversationShell');
+const conversationCast = document.querySelector('#conversationCast');
+const chatMessages = document.querySelector('#chatMessages');
+const chatReplay = document.querySelector('#chatReplay');
+let activeConversation = 0, chatTimers = [], chatHasPlayed = reduceMotion;
+function clearChatPlayback() { chatTimers.forEach(clearTimeout); chatTimers = []; document.querySelector('.chat-typing')?.remove(); }
+function scheduleChat(callback, delay) { chatTimers.push(setTimeout(callback, delay)); }
+function setChatStatus(typing = false) { document.querySelector('#chatStatus').innerHTML = `<i></i>${typing ? '正在输入…' : '此刻在线 · 本地角色'}`; }
+function scrollChat() { chatMessages.scrollTo({ top:chatMessages.scrollHeight, behavior:reduceMotion ? 'auto' : 'smooth' }); }
+function renderConversation(animate = false) {
+  clearChatPlayback();
+  const scene = conversations[activeConversation];
+  chatMessages.innerHTML = '<div class="chat-day"><span>今天</span><i></i><small>A MOMENT WITH YOU</small></div>';
+  setChatStatus();
+  function appendMessage(message) {
+    const row = document.createElement('div');
+    row.className = `chat-message ${message.from === 'user' ? 'from-user' : 'from-character'}`;
+    if (message.from === 'character') {
+      const avatar = document.createElement('img');
+      avatar.src = scene.character.avatar; avatar.alt = ''; avatar.className = 'message-avatar';
+      row.append(avatar);
+    }
+    const stack = document.createElement('div'); stack.className = 'message-stack';
+    const bubble = document.createElement('p'); bubble.className = 'chat-bubble'; bubble.textContent = message.text;
+    const meta = document.createElement('span'); meta.className = 'chat-message-meta'; meta.textContent = `${message.time}${message.from === 'user' ? ' ✓✓' : ''}`;
+    stack.append(bubble, meta); row.append(stack); chatMessages.append(row);
+    if (message.from === 'character') setChatStatus();
+    scrollChat();
+  }
+  function showTyping() {
+    document.querySelector('.chat-typing')?.remove();
+    const typing = document.createElement('div'); typing.className = 'chat-message from-character chat-typing'; typing.setAttribute('aria-label', `${scene.character.name}正在输入`);
+    typing.innerHTML = `<img class="message-avatar" src="${scene.character.avatar}" alt=""><div class="typing-bubble"><i></i><i></i><i></i></div>`;
+    chatMessages.append(typing); setChatStatus(true); scrollChat();
+  }
+  if (!animate || reduceMotion) { scene.messages.forEach(appendMessage); return; }
+  let delay = 250;
+  scene.messages.forEach(message => {
+    scheduleChat(() => {
+      if (message.from === 'character') {
+        showTyping();
+        scheduleChat(() => { document.querySelector('.chat-typing')?.remove(); appendMessage(message); }, 650);
+      } else appendMessage(message);
+    }, delay);
+    delay += message.from === 'character' ? 1250 : 750;
+  });
+}
+function selectConversation(id, animate = true) {
+  const index = conversations.findIndex(scene => scene.id === id);
+  if (index < 0) return;
+  activeConversation = index;
+  const scene = conversations[index];
+  conversationShell.style.setProperty('--chat-accent', scene.character.accent);
+  document.querySelector('#chatAvatar').src = scene.character.avatar;
+  document.querySelector('#chatName').textContent = scene.character.name;
+  document.querySelector('#chatScene').textContent = `SCENE ${String(index + 1).padStart(2,'0')} / 04`;
+  document.querySelector('#chatPanel').setAttribute('aria-labelledby', `chat-tab-${scene.id}`);
+  conversationCast.querySelectorAll('[role="tab"]').forEach((button, buttonIndex) => {
+    const selected = buttonIndex === index;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+  });
+  renderConversation(animate);
+}
+conversationCast.innerHTML = conversations.map((scene, index) => `<button class="conversation-character${index === 0 ? ' active' : ''}" id="chat-tab-${scene.id}" type="button" role="tab" aria-selected="${index === 0}" aria-controls="chatPanel" tabindex="${index === 0 ? 0 : -1}" data-conversation="${scene.id}" style="--character-accent:${scene.character.accent}"><img src="${scene.character.avatar}" alt="" loading="lazy"><span><strong>${scene.character.name}</strong><small>${scene.label}</small></span><i>0${index + 1}</i></button>`).join('');
+conversationCast.addEventListener('click', event => {
+  const button = event.target.closest('[data-conversation]');
+  if (button) selectConversation(button.dataset.conversation);
+});
+conversationCast.addEventListener('keydown', event => {
+  if (!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  let index = activeConversation;
+  if (event.key === 'Home') index = 0;
+  else if (event.key === 'End') index = conversations.length - 1;
+  else index = (index + (['ArrowRight','ArrowDown'].includes(event.key) ? 1 : -1) + conversations.length) % conversations.length;
+  selectConversation(conversations[index].id);
+  conversationCast.children[index].focus();
+});
+chatReplay.addEventListener('click', () => {
+  chatReplay.classList.remove('replaying');
+  void chatReplay.offsetWidth;
+  chatReplay.classList.add('replaying');
+  renderConversation(true);
+  scheduleChat(() => chatReplay.classList.remove('replaying'), 700);
+});
+selectConversation(conversations[0].id, false);
+new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !chatHasPlayed) { chatHasPlayed = true; renderConversation(true); }
+}, { threshold:.28 }).observe(conversationShell);
+
 // Scroll reveals, progress and navigation state.
 const header = document.querySelector('#siteHeader');
 function onScroll() {
@@ -248,7 +427,7 @@ const navObserver = new IntersectionObserver(entries => {
     });
   });
 }, { rootMargin:'-32% 0px -58%', threshold:0 });
-['characters','features','sync'].forEach(id => navObserver.observe(document.getElementById(id)));
+['characters','conversations','features','sync'].forEach(id => navObserver.observe(document.getElementById(id)));
 
 document.querySelectorAll('.feature-panel').forEach(panel => {
   panel.addEventListener('pointermove', event => {
