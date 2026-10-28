@@ -80,3 +80,65 @@
   .hero{height:1000px;min-height:1000px;padding-top:94px}
   .hero-sticky{height:906px}
 }
+
+/* character-specific art direction and final polish */
+.hero{--hero-secondary:#7fa5d9}
+.hero-sticky::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 18% 85%,color-mix(in srgb,var(--hero-secondary) 10%,transparent),transparent 35%);transition:background .8s}
+.scene-atmosphere{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.scene-grid{position:absolute;inset:-20%;opacity:.16;background-image:linear-gradient(color-mix(in srgb,var(--hero-accent) 16%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--hero-accent) 16%,transparent) 1px,transparent 1px);background-size:90px 90px;mask-image:radial-gradient(circle at 68% 50%,#000,transparent 64%);transform:rotate(-8deg);transition:opacity .7s,transform 1s,background-size .7s}
+.scene-halo{position:absolute;right:7%;top:7%;width:min(57vw,780px);aspect-ratio:1;border:1px solid color-mix(in srgb,var(--hero-accent) 18%,transparent);border-radius:50%;opacity:.38;box-shadow:inset 0 0 100px color-mix(in srgb,var(--hero-secondary) 5%,transparent),0 0 100px color-mix(in srgb,var(--hero-accent) 4%,transparent);transition:border-radius .8s,transform 1s,border-color .8s}
+.scene-halo::before,.scene-halo::after{content:"";position:absolute;border:1px solid color-mix(in srgb,var(--hero-secondary) 14%,transparent);border-radius:inherit}
+.scene-halo::before{inset:9%}.scene-halo::after{inset:23%;border-style:dashed}
+.scene-symbols span{position:absolute;color:var(--hero-accent);font-family:Georgia,"Times New Roman",serif;font-weight:400;line-height:1;text-shadow:0 0 32px color-mix(in srgb,var(--hero-accent) 25%,transparent);opacity:.22;animation:symbolFloat 8s ease-in-out infinite;transition:color .6s}
+.scene-symbols span:nth-child(1){left:49%;top:17%;font-size:52px}
+.scene-symbols span:nth-child(2){right:5%;bottom:22%;font-size:30px;animation-delay:-2.5s}
+.scene-symbols span:nth-child(3){left:43%;bottom:16%;font-size:24px;animation-delay:-5s}
+.scene-label{position:absolute;left:46%;bottom:105px;color:#665973;font-size:6px;letter-spacing:.25em;white-space:nowrap}
+.scene-label::before{content:"";display:inline-block;width:34px;height:1px;margin:0 12px 2px 0;background:var(--hero-accent);opacity:.5}
+.hero[data-texture="archive"] .scene-grid{background-size:180px 100%;background-image:repeating-linear-gradient(90deg,transparent 0 100px,color-mix(in srgb,var(--hero-accent) 20%,transparent) 100px 101px);transform:rotate(0)}
+.hero[data-texture="archive"] .scene-halo{border-radius:24px;transform:rotate(7deg) scale(.82)}
+.hero[data-texture="sketch"] .scene-grid{background-size:55px 55px;opacity:.1;transform:rotate(5deg)}
+.hero[data-texture="digital"] .scene-grid{background-size:42px 42px;transform:rotate(0);opacity:.2}
+.hero[data-texture="pixel"] .scene-grid{background-size:32px 32px;transform:rotate(0)}
+.hero[data-texture="pixel"] .scene-halo{border-radius:0;transform:rotate(45deg) scale(.62)}
+.hero[data-texture="math"] .scene-grid{background-size:70px 70px;transform:rotate(0);opacity:.22}
+.hero[data-texture="rail"] .scene-grid{background-size:100% 68px;transform:perspective(650px) rotateX(57deg) rotateZ(-12deg) scale(1.35)}
+.hero[data-texture="rail"] .scene-halo{transform:rotate(-24deg) scaleY(.48)}
+.hero[data-texture="detective"] .scene-grid{background-image:radial-gradient(circle,transparent 0 54px,color-mix(in srgb,var(--hero-accent) 22%,transparent) 55px 56px,transparent 57px);background-size:170px 170px;transform:rotate(0)}
+.hero[data-texture="detective"] .scene-halo{border-width:2px;transform:scale(.72)}
+.hero[data-texture="nocturne"] .scene-grid{opacity:.07;transform:rotate(0)}
+.hero[data-texture="nocturne"] .scene-halo{transform:scale(.85);border-style:dashed}
+.scene-transition{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;background:linear-gradient(105deg,transparent 34%,color-mix(in srgb,var(--hero-accent) 16%,transparent) 48%,rgba(255,255,255,.09) 51%,transparent 65%);mix-blend-mode:screen;transform:translateX(-120%)}
+.scene-transition.play{animation:sceneSweep .85s var(--ease)}
+.stage-chat{border-color:color-mix(in srgb,var(--hero-accent) 25%,transparent);transition:border-color .6s}
+@keyframes symbolFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-18px) rotate(7deg)}}
+@keyframes sceneSweep{0%{opacity:0;transform:translateX(-120%)}30%{opacity:.65}100%{opacity:0;transform:translateX(120%)}}
+
+.desktop-nav a{position:relative}
+.desktop-nav a::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:1px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.desktop-nav a.active{color:#fff}
+.desktop-nav a.active::after{transform:scaleX(1)}
+.feature-panel{--spot-x:50%;--spot-y:50%;isolation:isolate;transition:transform .55s var(--ease),box-shadow .55s var(--ease)}
+.feature-panel::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(360px circle at var(--spot-x) var(--spot-y),rgba(255,255,255,.14),transparent 68%);opacity:0;transition:opacity .45s}
+@media(hover:hover){
+  .feature-panel:hover{transform:translateY(-6px);box-shadow:0 28px 65px rgba(24,16,31,.14)}
+  .feature-panel:hover::after{opacity:1}
+}
+.button-light{position:relative;overflow:hidden}
+.button-light::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.65) 48%,transparent 70%);transform:translateX(-130%);transition:transform .7s var(--ease)}
+.button-light:hover::before{transform:translateX(130%)}
+::selection{background:#bda0ff;color:#140d1c}
+:focus-visible{outline:2px solid var(--purple);outline-offset:5px}
+@media(max-width:900px){
+  .scene-label{display:none}
+  .scene-grid{opacity:.09}
+  .scene-halo{right:-270px;top:34%;width:620px;opacity:.2}
+  .scene-symbols span:nth-child(1){left:8%;top:48%;font-size:34px}
+  .scene-symbols span:nth-child(2){right:6%;bottom:15%;font-size:23px}
+  .scene-symbols span:nth-child(3){left:5%;bottom:8%;font-size:18px}
+  .scene-transition{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .scene-transition{display:none}
+  .feature-panel:hover{transform:none}
+}

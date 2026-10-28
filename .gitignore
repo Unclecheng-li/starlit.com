@@ -1,0 +1,8 @@
+# Local preview and validation artifacts
+preview-*
+originals-contact.jpg
+.edge-*/
+preview-server.*
+
+# Large local installers are distributed through GitHub Releases
+docs/downloads/

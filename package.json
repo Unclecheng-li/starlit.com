@@ -1,0 +1,10 @@
+{
+  "name": "starlit-home",
+  "version": "1.0.0",
+  "private": true,
+  "description": "星伴项目主页与本地预览服务",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "start": "node scripts/dev.mjs"
+  }
+}

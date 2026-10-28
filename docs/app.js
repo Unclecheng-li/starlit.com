@@ -117,6 +117,18 @@ viewport.addEventListener('pointercancel', endDrag);
 const hero = document.querySelector('#top');
 const heroPortraits = document.querySelector('#heroPortraits');
 const cinematicMedia = window.matchMedia('(min-width: 901px)');
+const sceneArt = {
+  hoshino:{ symbols:['☾','✦','≈'], label:'DREAMING UNDER THE HALO', texture:'dream', secondary:'#7fa5d9' },
+  '3901000011':{ symbols:['▤','❧','⌑'], label:'THE ARCHIVE OF QUIET PAGES', texture:'archive', secondary:'#8c7969' },
+  '3901000012':{ symbols:['✎','⌁','✧'], label:'A STORY SKETCHED IN SILENCE', texture:'sketch', secondary:'#9b83e2' },
+  '3901000013':{ symbols:['⌁','<>','◈'], label:'SIGNALS BENEATH THE SURFACE', texture:'digital', secondary:'#79c8ff' },
+  '3901000014':{ symbols:['✚','▦','✦'], label:'A NEW QUEST BEGINS', texture:'pixel', secondary:'#80b8ff' },
+  '3901000015':{ symbols:['∑','%','∞'], label:'PERFECT ORDER, IMPERFECT DAYS', texture:'math', secondary:'#758fe5' },
+  '3901000016':{ symbols:['↗','✦','≋'], label:'THE NEXT STOP IS ANYWHERE', texture:'rail', secondary:'#81dcb0' },
+  '3901000017':{ symbols:['↯','✦','→'], label:'FULL SPEED THROUGH THE DAY', texture:'rail', secondary:'#e6c887' },
+  '3901000018':{ symbols:['⌕','⊙','?'], label:'EVERY CLUE TELLS A STORY', texture:'detective', secondary:'#89d8e8' },
+  '3901000019':{ symbols:['☾','♢','✦'], label:'WHEN THE NIGHT FINALLY RESTS', texture:'nocturne', secondary:'#7656ad' }
+};
 let portraits = [], activeScene = -1, cinemaFrame = 0;
 
 function renderHero() {
@@ -153,14 +165,23 @@ function updateCinema() {
   const character = characters[index];
   hero.style.setProperty('--hero-accent', character.accent);
   hero.dataset.scene = character.id;
+  const art = sceneArt[character.id];
+  hero.style.setProperty('--hero-secondary', art.secondary);
+  hero.dataset.texture = art.texture;
   document.querySelector('#stageNumber').textContent = String(index + 1).padStart(2,'0');
   document.querySelector('#sceneCounter').textContent = `${String(index + 1).padStart(2,'0')} / 10`;
   document.querySelector('#heroCharacterWord').textContent = character.en.split(' ').at(-1);
   document.querySelector('#sceneName').textContent = character.name;
   document.querySelector('#sceneQuote').textContent = character.quote;
+  document.querySelector('#sceneLabel').textContent = `${art.label} · ${String(index + 1).padStart(3,'0')}`;
+  document.querySelector('#sceneSymbols').innerHTML = art.symbols.map(symbol => `<span>${symbol}</span>`).join('');
   document.querySelector('#heroChatAvatar').src = character.avatar;
   document.querySelector('#heroChatName').textContent = `${character.name} · 刚刚`;
   document.querySelector('#heroChatText').textContent = character.quote;
+  const transition = document.querySelector('.scene-transition');
+  transition.classList.remove('play');
+  void transition.offsetWidth;
+  transition.classList.add('play');
   document.querySelectorAll('[data-roster]').forEach((button, buttonIndex) => {
     button.classList.toggle('active', buttonIndex === index);
     button.setAttribute('aria-pressed', String(buttonIndex === index));
@@ -213,6 +234,34 @@ else {
   }), { threshold:.08, rootMargin:'0px 0px -45px' });
   reveals.forEach(item => observer.observe(item));
 }
+
+// Editorial navigation state and light that follows the reader.
+const navLinks = [...document.querySelectorAll('.desktop-nav a')];
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    navLinks.forEach(link => {
+      const active = link.getAttribute('href') === `#${entry.target.id}`;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  });
+}, { rootMargin:'-32% 0px -58%', threshold:0 });
+['characters','features','sync'].forEach(id => navObserver.observe(document.getElementById(id)));
+
+document.querySelectorAll('.feature-panel').forEach(panel => {
+  panel.addEventListener('pointermove', event => {
+    if (!finePointer) return;
+    const rect = panel.getBoundingClientRect();
+    panel.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+    panel.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+  });
+  panel.addEventListener('pointerleave', () => {
+    panel.style.setProperty('--spot-x', '50%');
+    panel.style.setProperty('--spot-y', '50%');
+  });
+});
 
 // Hero depth and tactile 3D cards.
 const heroVisual = document.querySelector('#heroVisual');
