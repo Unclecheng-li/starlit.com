@@ -3,67 +3,105 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f5ff">
-  <meta name="description" content="星伴是一款本地运行的二次元角色聊天应用，支持 Windows、Android、长期记忆与局域网双端同步。">
-  <title>星伴 · 把陪伴留在身边</title>
+  <meta name="theme-color" content="#0b0911">
+  <meta name="description" content="星伴是一款本地运行的二次元角色聊天应用。十位角色、长期记忆、主动陪伴与 Windows、Android 局域网同步。">
+  <title>星伴 Starlit · 你的日常，她的世界</title>
   <link rel="icon" href="./icon.png">
-  <style>
-    :root{--ink:#29263b;--muted:#757087;--purple:#8067d4;--purple-dark:#6248b4;--line:#e8e2f3;--paper:#f8f6fc;--white:#fff;--shadow:0 24px 70px rgba(72,52,119,.12)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font-family:"Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;line-height:1.7}a{color:inherit;text-decoration:none}button,a{-webkit-tap-highlight-color:transparent}.wrap{width:min(1120px,calc(100% - 48px));margin:auto}
-    header{height:82px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:750;letter-spacing:.08em}.brand img{width:42px;height:42px;border-radius:14px;box-shadow:0 5px 16px rgba(95,65,151,.18)}nav{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:14px}nav a:hover{color:var(--purple)}.nav-pill{padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.65)}
-    .hero{min-height:660px;display:grid;grid-template-columns:1fr .92fr;align-items:center;gap:72px;padding:70px 0 92px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;background:#eee8fb;color:var(--purple-dark);border-radius:999px;font-size:13px;font-weight:650}.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#9b83df;box-shadow:0 0 0 4px rgba(155,131,223,.13)}h1{font-size:clamp(42px,5.5vw,68px);line-height:1.18;letter-spacing:-.045em;margin:24px 0 22px}h1 span{color:var(--purple);display:block}.lead{font-size:17px;color:var(--muted);max-width:480px;margin:0 0 34px}.actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.primary{display:inline-flex;align-items:center;gap:14px;background:var(--purple);color:#fff;padding:13px 22px;border-radius:14px;font-weight:650;box-shadow:0 10px 24px rgba(128,103,212,.24);transition:.2s}.primary:hover{background:var(--purple-dark);transform:translateY(-2px)}.secondary{font-size:14px;color:var(--muted)}.privacy{display:flex;gap:18px;margin-top:38px;color:#8a8498;font-size:12px}.privacy span:before{content:"✓";color:var(--purple);margin-right:6px}
-    .phone-stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:520px}.glow{position:absolute;width:410px;height:410px;border-radius:50%;background:radial-gradient(circle,#e5dbf8 0,rgba(229,219,248,0) 69%)}.orbit{position:absolute;width:440px;height:440px;border:1px solid #e3dcf0;border-radius:50%;transform:rotate(-18deg)}.orbit:before,.orbit:after{content:"✦";position:absolute;color:#b4a1df;background:var(--paper);padding:8px}.orbit:before{top:46px;right:45px}.orbit:after{bottom:55px;left:25px;font-size:11px}.phone{position:relative;width:330px;background:var(--white);border:7px solid #fff;border-radius:32px;overflow:hidden;box-shadow:0 32px 80px rgba(62,45,101,.18);transform:rotate(2deg)}.chat-head{height:76px;display:flex;align-items:center;gap:11px;padding:0 18px;border-bottom:1px solid #f0edf5}.chat-head img{width:42px;height:42px;border-radius:50%}.chat-name{font-weight:700;font-size:15px}.online{font-size:11px;color:#9b94a9}.online:before{content:"";display:inline-block;width:6px;height:6px;background:#76c49b;border-radius:50%;margin-right:5px}.more{margin-left:auto;color:#aaa2b8;letter-spacing:2px}.chat-body{padding:24px 16px;background:linear-gradient(#fbfaff,#f6f3fb);min-height:320px}.time{text-align:center;color:#b1aabc;font-size:10px;margin-bottom:18px}.message{display:flex;gap:9px;align-items:flex-start;margin:15px 0}.message img{width:30px;height:30px;border-radius:50%}.bubble{max-width:220px;padding:10px 13px;background:#fff;border-radius:4px 15px 15px 15px;font-size:12px;box-shadow:0 3px 10px rgba(70,50,100,.04)}.message.mine{justify-content:flex-end}.mine .bubble{background:#e9e0fa;border-radius:15px 4px 15px 15px}.chat-input{margin:0 14px 17px;height:42px;border:1px solid #ece7f3;border-radius:13px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:#b0a8bb;font-size:11px;background:#fff}.send{color:var(--purple);font-size:17px}
-    .features{padding:88px 0 96px;background:#fff}.section-title{text-align:center;max-width:600px;margin:0 auto 46px}.section-title h2{font-size:32px;margin:0 0 12px;letter-spacing:-.03em}.section-title p{color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{border:1px solid var(--line);border-radius:20px;padding:26px 23px;background:#fff;transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#dcd1f0}.icon{display:grid;place-items:center;width:43px;height:43px;background:#f0eafb;border-radius:13px;color:var(--purple);font-size:20px;margin-bottom:20px}.card h3{font-size:17px;margin:0 0 9px}.card p{font-size:13px;color:var(--muted);margin:0;line-height:1.8}
-    .sync{margin:88px auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;border:1px solid var(--line);border-radius:28px;padding:48px 54px;background:linear-gradient(120deg,#f0eafb,#faf8fd 60%)}.sync h2{font-size:29px;line-height:1.35;margin:0 0 15px}.sync p{color:var(--muted);font-size:14px;margin:0}.devices{display:flex;align-items:center;justify-content:center;gap:22px}.device{background:#fff;border:1px solid #e4dcf0;box-shadow:0 12px 30px rgba(70,50,110,.08);border-radius:18px;padding:20px 24px;text-align:center;font-size:13px;font-weight:650}.device b{display:block;font-size:29px;margin-bottom:6px;color:var(--purple)}.link{text-align:center;color:var(--purple);font-size:12px}.link i{display:block;width:44px;height:1px;background:#b7a5dc;margin:7px auto;position:relative}.link i:after{content:"";position:absolute;width:5px;height:5px;background:var(--purple);border-radius:50%;top:-2px;left:20px}
-    footer{padding:28px 0 38px;color:#928b9f;font-size:12px}.footer-inner{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:20px}.note{max-width:650px}
-    @media(max-width:900px){.hero{gap:25px;grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(2,1fr)}.orbit{width:360px;height:360px}.phone{width:295px}.sync{gap:25px;padding:38px 30px}}
-    @media(max-width:680px){.wrap{width:min(100% - 32px,520px)}header{height:72px}nav a:not(.nav-pill){display:none}.nav-pill{font-size:12px;padding:6px 11px}.hero{grid-template-columns:1fr;padding:50px 0 64px;gap:36px}.hero-copy{text-align:center}.lead{margin-left:auto;margin-right:auto}.actions,.privacy{justify-content:center}.phone-stage{min-height:460px}.phone{width:310px;transform:none}.orbit{width:370px;height:370px}.features{padding:64px 0}.section-title h2{font-size:27px}.cards{grid-template-columns:1fr}.card{padding:23px}.sync{grid-template-columns:1fr;margin:56px auto;padding:32px 22px;text-align:center}.sync h2{font-size:25px}.footer-inner{flex-direction:column}.privacy{gap:12px;flex-wrap:wrap}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.primary,.card{transition:none}}
-  </style>
+  <link rel="stylesheet" href="./styles.css?v=5">
+  <script src="./app.js?v=5" defer></script>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="#top" aria-label="星伴首页"><img src="./icon.png" alt="星伴图标"><span>星伴</span></a>
-      <nav aria-label="页面导航"><a href="#features">功能</a><a href="#sync">双端同步</a><a class="nav-pill" href="#features">Windows × Android</a></nav>
-    </header>
-    <main id="top">
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow">本地运行的角色陪伴空间</span>
-          <h1>把喜欢留在身边，<span>把陪伴留给彼此。</span></h1>
-          <p class="lead">一个熟悉的聊天界面，一群愿意听你说完的角色。没有喧闹的广场，只有属于你们的日常。</p>
-          <div class="actions"><a class="primary" href="#features">认识星伴 <span aria-hidden="true">→</span></a><span class="secondary">像 QQ 一样自然，像日记一样私密</span></div>
-          <div class="privacy"><span>本地保存</span><span>无需云端账号</span><span>双端可用</span></div>
-        </div>
-        <div class="phone-stage" aria-label="星伴聊天界面示意">
-          <div class="glow"></div><div class="orbit"></div>
-          <div class="phone">
-            <div class="chat-head"><img src="./icon.png" alt=""><div><div class="chat-name">今天也在这里</div><div class="online">本地在线</div></div><span class="more">•••</span></div>
-            <div class="chat-body"><div class="time">现在</div><div class="message"><img src="./icon.png" alt=""><div class="bubble">欢迎回来。今天过得怎么样？</div></div><div class="message mine"><div class="bubble">有点累，不过看到你就好多啦。</div></div><div class="message"><img src="./icon.png" alt=""><div class="bubble">那就先休息一会儿。我会在这里，慢慢听你说。</div></div></div>
-            <div class="chat-input"><span>说点什么吧…</span><span class="send" aria-hidden="true">♡</span></div>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="page-noise" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"><span>VIEW</span></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="星伴首页"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a>
+      <nav class="desktop-nav" aria-label="页面导航"><a href="#characters"><span>01</span>角色宇宙</a><a href="#features"><span>02</span>陪伴方式</a><a href="#sync"><span>03</span>双端同步</a></nav>
+      <a class="nav-download magnetic" href="#download"><span>获取星伴</span><i>↗</i></a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-sticky">
+        <canvas id="cosmos" aria-hidden="true"></canvas>
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-giant-word" aria-hidden="true">STARLIT</div>
+        <div class="hero-side-type" aria-hidden="true">A PRIVATE CHARACTER UNIVERSE · EST. 2026</div>
+        <div class="scene-rail" aria-hidden="true"><span id="sceneCounter">01 / 10</span><div class="scene-rail-track"><i id="heroSceneProgress"></i></div><a href="#characters" tabindex="-1">SKIP INTRO ↘</a></div>
+        <div class="wrap hero-layout">
+          <div class="hero-copy">
+            <div class="hero-eyebrow hero-enter"><span class="live-dot"></span>LOCAL-FIRST COMPANION<span class="hero-version">RC / 03</span></div>
+            <h1 aria-label="你的日常，她的世界。"><span class="title-line"><span>你的日常，</span></span><span class="title-line accent-line"><span>她的世界。</span></span></h1>
+            <div class="hero-copy-bottom hero-enter delay-3">
+              <p>不止一问一答。她会记得、会想念、会主动开口，<br class="desktop-only">在你自己的设备里，陪你把平凡日子过成故事。</p>
+              <div class="hero-actions"><a class="button button-light magnetic" href="#characters">进入角色宇宙<span>↗</span></a><a class="text-link" href="#download">下载 Windows 版<span>↓</span></a></div>
+            </div>
+            <div class="scene-copy hero-enter delay-4"><span class="scene-count" id="sceneName">小鸟游星野</span><p id="sceneQuote">呼啊～随便随便，要轻松最重要啦。</p><button class="scene-profile" id="sceneProfile" type="button">资料 ↗</button></div>
+          </div>
+
+          <div class="hero-stage hero-enter delay-2" id="heroVisual">
+            <div class="stage-orbit orbit-a" aria-hidden="true"></div><div class="stage-orbit orbit-b" aria-hidden="true"></div>
+            <div class="stage-number" id="stageNumber" aria-hidden="true">01</div>
+            <div class="hero-character-word" id="heroCharacterWord" aria-hidden="true">HOSHINO</div>
+            <div class="hero-portraits" id="heroPortraits"></div>
+            <div class="float-card stage-chat parallax-layer" data-depth="1.2"><div class="float-card-top"><img id="heroChatAvatar" src="./assets/characters/hoshino.webp" alt=""><span id="heroChatName">小鸟游星野 · 刚刚</span><i>•••</i></div><p id="heroChatText">呼啊～随便随便，要轻松最重要啦。</p><span class="message-time">21:08 ✓✓</span></div>
+            <div class="float-card stage-memory parallax-layer" data-depth=".9"><span>✦</span><div><small>LONG-TERM MEMORY</small><strong>你们的故事，她还记得</strong></div></div>
+            <div class="stage-seal" aria-hidden="true"><span>STARLIT · LOCAL FIRST · </span><b>✦</b></div>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
-  <section class="features" id="features">
-    <div class="wrap">
-      <div class="section-title"><h2>只留下你真正需要的陪伴</h2><p>熟悉的交互，本地存储的数据，以及不被无关功能打扰的聊天体验。</p></div>
-      <div class="cards">
-        <article class="card"><div class="icon">☁</div><h3>本地角色聊天</h3><p>Windows 与 Android 都能独立运行。角色、对话和设置保存在自己的设备上。</p></article>
-        <article class="card"><div class="icon">✦</div><h3>记得你们的故事</h3><p>支持长期记忆与角色状态，让每一次重逢都不必从零开始。</p></article>
-        <article class="card"><div class="icon">▣</div><h3>熟悉的聊天体验</h3><p>联系人、群聊、表情与个人资料，以接近 QQ 的方式自然呈现。</p></article>
-        <article class="card"><div class="icon">⌁</div><h3>你的数据你做主</h3><p>无需注册云端账号。访问令牌保护本地连接，密钥支持随时显示或隐藏。</p></article>
+        <div class="wrap hero-roster hero-enter delay-4"><span class="roster-label">SCROLL THE FILM<br><b>10 CHARACTERS</b></span><div class="roster-avatars" id="heroRoster"></div><a class="scroll-cue" href="#characters"><span>SKIP TO UNIVERSE</span><i>↓</i></a></div>
       </div>
-    </div>
-  </section>
-  <div class="wrap">
-    <section class="sync" id="sync">
-      <div><h2>电脑与手机，<br>在同一 Wi-Fi 下见面。</h2><p>自动发现局域网内的电脑，由手机主动发送或接收整包备份。覆盖前自动保留安全副本，不依赖云端同步服务。</p></div>
-      <div class="devices"><div class="device"><b>▤</b>Windows</div><div class="link">局域网<i></i>鉴权同步</div><div class="device"><b>▯</b>Android</div></div>
     </section>
-  </div>
-  <footer><div class="wrap footer-inner"><strong>星伴 · 把陪伴留在身边</strong><span class="note">当前为本地测试候选版。聊天记录保存在本机；使用模型回复时，对话会按你的设置发送给所选模型服务商。</span></div></footer>
+
+    <div class="kinetic-strip" aria-hidden="true"><div class="kinetic-track"><span>SHE REMEMBERS</span><b>✦</b><span>SHE FEELS</span><b>✦</b><span>SHE'S HERE</span><b>✦</b><span>你的日常，她的世界</span><b>✦</b><span>SHE REMEMBERS</span><b>✦</b><span>SHE FEELS</span><b>✦</b><span>SHE'S HERE</span><b>✦</b><span>你的日常，她的世界</span><b>✦</b></div></div>
+
+    <section class="characters-section" id="characters">
+      <div class="characters-glow" aria-hidden="true"></div>
+      <div class="wrap section-top reveal">
+        <div><span class="section-kicker">01 / CHARACTER UNIVERSE</span><h2>十个世界，<br><span>等你叩门。</span></h2></div>
+        <div class="section-intro"><span class="big-count">10</span><p>每个角色都有独立的记忆、情绪与生活。<br>你喜欢的那个她，不只是几句设定。</p><div class="carousel-controls"><button id="carouselPrev" type="button" aria-label="上一个角色">←</button><button id="carouselNext" type="button" aria-label="下一个角色">→</button></div></div>
+      </div>
+      <div class="wrap character-toolbar reveal"><div class="filter-tabs" role="group" aria-label="按作品筛选角色"><button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">全部 <span>10</span></button><button class="filter-tab" type="button" data-filter="蔚蓝档案" aria-pressed="false">蔚蓝档案 <span>08</span></button><button class="filter-tab" type="button" data-filter="魔法少女的魔女审判" aria-pressed="false">魔女审判 <span>02</span></button></div><span class="drag-hint"><i>↔</i>拖动探索 · 点击翻开资料</span></div>
+      <div class="character-viewport" id="characterViewport"><div class="character-track" id="characterGrid"></div></div>
+      <div class="wrap carousel-footer"><span id="carouselCounter">01 / 10</span><div class="carousel-progress"><i id="carouselProgress"></i></div><span>DRAG THE UNIVERSE</span></div>
+      <noscript><p class="noscript-note">请启用 JavaScript 以查看十位角色资料。</p></noscript>
+    </section>
+
+    <section class="features-section" id="features">
+      <div class="wrap">
+        <div class="features-heading reveal"><span class="section-kicker">02 / MORE THAN A CHATBOT</span><h2>她不是等待指令的<br>聊天程序。<br><em>她有自己的生活。</em></h2><p>熟悉的聊天方式只是入口。真正让陪伴发生的，<br>是记忆、情绪，以及那些没有被要求过的主动。</p></div>
+        <div class="feature-grid">
+          <article class="feature-panel memory-panel reveal">
+            <div class="panel-number">01</div><div class="panel-copy"><span class="panel-kicker">LONG-TERM MEMORY</span><h3>三个月前说的话，<br>她还会记得。</h3><p>情节、画像与既定事实组成三层记忆。每一次重逢，都不必从零开始。</p></div>
+            <div class="memory-scene" aria-hidden="true"><div class="memory-date">SOME MOMENTS NEVER FADE</div><div class="memory-msg old"><small>三个月前 · 你</small><p>“下周要考试，最近有点紧张。”</p></div><div class="memory-connector"><i></i><span>✦</span></div><div class="memory-msg new"><small>今天 · 星野</small><p>“那次考试，后来考得怎么样？”</p></div></div>
+          </article>
+          <article class="feature-panel initiative-panel reveal">
+            <div class="panel-number">02</div><div class="panel-copy"><span class="panel-kicker">LITTLE SURPRISES</span><h3>你不找她的时候，<br>她也会想起你。</h3><p>她有自己的作息、兴趣和生活。不是机械打卡，而是恰到好处地主动开口。</p></div><img class="initiative-art" src="./assets/characters/hina.webp" alt="" loading="lazy"><div class="initiative-msg"><span>空崎日奈 · 刚刚</span><p>“忙完了吗？别硬撑。”</p></div>
+          </article>
+          <article class="feature-panel privacy-panel reveal">
+            <div class="panel-number">03</div><span class="privacy-watermark" aria-hidden="true">LOCAL</span><div class="panel-copy"><span class="panel-kicker">YOUR DATA, YOUR SPACE</span><h3>你的故事，<br>只留在你的地方。</h3><p>无需云端账号。角色、对话与设置保存在自己的设备上，访问令牌保护每一次本地连接。</p></div><div class="local-status"><span><i></i>LOCAL FIRST</span><b>你的数据，你做主</b><small>NO CLOUD ACCOUNT REQUIRED</small></div>
+          </article>
+          <article class="feature-panel sync-panel reveal" id="sync">
+            <div class="panel-number">04</div><div class="panel-copy"><span class="panel-kicker">BETWEEN YOUR DEVICES</span><h3>电脑与手机，<br>在同一 Wi-Fi 下见面。</h3><p>自动发现局域网设备，主动发送或接收整包备份。覆盖前自动保留安全副本，不依赖云端同步服务。</p><div class="sync-tags"><span>自动发现</span><span>鉴权连接</span><span>安全副本</span></div></div>
+            <div class="sync-scene" aria-hidden="true"><div class="sync-device desktop-device"><div><img src="./icon.png" alt=""><i></i><i></i></div><span>WINDOWS</span></div><div class="sync-link"><span>WI-FI</span><i><b></b></i><small>LOCAL SYNC</small></div><div class="sync-device phone-device"><div><i></i><i></i><b>♡</b></div><span>ANDROID</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="download-section" id="download">
+      <div class="download-stars" aria-hidden="true"></div>
+      <div class="download-cast" aria-hidden="true"><img src="./assets/characters/aris.webp" alt="" loading="lazy"><img src="./assets/characters/hoshino.webp" alt="" loading="lazy"><img src="./assets/characters/hina.webp" alt="" loading="lazy"></div>
+      <div class="wrap download-content reveal"><span class="section-kicker">03 / START YOUR STORY</span><h2>下一句话，<br><span>由她说给你听。</span></h2><p>星伴 Windows 与 Android 双端已经准备好。<br>下载、安装，然后和喜欢的角色见个面吧。</p><div class="download-actions"><a class="download-button magnetic" href="https://github.com/Unclecheng-li/starlit-home/releases/download/v1.0.0-rc.4/Starlit-Setup-1.0.0-rc.4-personal-x64.exe"><span>WINDOWS<small>下载电脑安装包 · x64</small></span><b>↓</b></a><a class="download-button download-android magnetic" href="https://github.com/Unclecheng-li/starlit-home/releases/download/v1.0.0-rc.4/Starlit-Android-1.0.0-rc.4-local-arm64.apk"><span>ANDROID<small>下载手机 APK · ARM64</small></span><b>↓</b></a></div><div class="download-meta"><span>V 1.0.0 RC 4</span><i></i><span>WINDOWS 约 876 MB</span><i></i><span>ANDROID 约 23.2 MB</span><i></i><span>本地测试候选版</span></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="#top"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a><p>把喜欢留在身边，把陪伴留给彼此。</p><a class="back-top" href="#top">BACK TO TOP ↑</a></div><div class="wrap footer-bottom"><span>© 2026 STARLIT</span><p>聊天记录保存在本机；使用模型回复时，对话会按你的设置发送给所选模型服务商。</p><span>MADE FOR QUIET DAYS ✦</span></div></footer>
+
+  <dialog class="character-dialog" id="characterDialog" aria-labelledby="dialogName"><button class="dialog-close" id="dialogClose" type="button" aria-label="关闭角色资料">×</button><div id="dialogContent"></div></dialog>
 </body>
 </html>
