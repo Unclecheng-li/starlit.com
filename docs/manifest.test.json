@@ -3,22 +3,22 @@
   "channel": "test",
   "releasedAt": "2026-10-29",
   "notes": [
-    "新增双端自动检查、后台下载与一键更新",
-    "Windows 支持断点续传、SHA-256 校验和安装前自动备份",
-    "Android 支持 APK 校验与系统安装流程"
+    "设置页现在会显示当前版本号",
+    "手动检查更新时会明确提示当前版本",
+    "用于验证 RC5 到 RC6 的真实小增量升级"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.5-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.5/Starlit-Setup-1.0.0-rc.5-personal-x64.exe",
-      "size": 918803701,
-      "sha256": "a1efc8c93084576466266165229cd7c2e1072daed5f90b87a4e7eebb6d5613f8"
+      "version": "1.0.0-rc.6-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.6/Starlit-Setup-1.0.0-rc.6-personal-x64.exe",
+      "size": 918803371,
+      "sha256": "aa834e4a8b543dac2d62cd3df80d1e3ed7d362802f4cacaba29f59f6b37fc300"
     },
     "android": {
-      "version": "1.0.0-rc.5-local",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.5/Starlit-Android-1.0.0-rc.5-local-arm64.apk",
-      "size": 25306003,
-      "sha256": "c80ea4aa5b1f3177aedea2e1b61e3215f965489c7ba7caf9a8150bf08941a8fb"
+      "version": "1.0.0-rc.6-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.6/Starlit-Android-1.0.0-rc.6-local-arm64.apk",
+      "size": 25306063,
+      "sha256": "9d262ccd714a87226864dffa5d326af3e4ce390252de3119f6e6a3f2258520fb"
     }
   }
 }
