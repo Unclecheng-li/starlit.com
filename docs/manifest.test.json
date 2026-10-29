@@ -3,10 +3,9 @@
   "channel": "test",
   "releasedAt": "2026-10-29",
   "notes": [
-    "桌面标题栏改用星野头像",
-    "优化手机聊天输入区与附件面板",
-    "修复部分安卓设备资源复制导致的启动失败",
-    "安卓启动失败时显示具体错误摘要"
+    "修复安卓后台引擎注册系统信号导致的启动异常",
+    "后台线程不再调用仅主线程可用的 set_wakeup_fd",
+    "保留桌面退出与安卓同步停止机制"
   ],
   "platforms": {
     "windows": {
@@ -16,10 +15,10 @@
       "sha256": "776ff7b39ee9d2eafc949a8d5d072efa63fa3fcde439c55bb7ee33d580bd53d4"
     },
     "android": {
-      "version": "1.0.0-rc.7-local",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.7/Starlit-Android-1.0.0-rc.7-local-arm64.apk",
+      "version": "1.0.0-rc.8-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.8/Starlit-Android-1.0.0-rc.8-local-arm64.apk",
       "size": 25681615,
-      "sha256": "700f58b2c8ecab16b6fd6013bb85f7e26d3a022ca7c02fbc477948e830c22f70"
+      "sha256": "e8dc7c9591cbbaa4b587778bca4e620f23132c90dedb919db30cf4ead9780593"
     }
   }
 }
