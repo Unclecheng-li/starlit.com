@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "channel": "test",
+  "releasedAt": "2026-10-29",
+  "notes": [
+    "新增双端自动检查、后台下载与一键更新",
+    "Windows 支持断点续传、SHA-256 校验和安装前自动备份",
+    "Android 支持 APK 校验与系统安装流程"
+  ],
+  "platforms": {
+    "windows": {
+      "version": "1.0.0-rc.5-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.5/Starlit-Setup-1.0.0-rc.5-personal-x64.exe",
+      "size": 918803701,
+      "sha256": "a1efc8c93084576466266165229cd7c2e1072daed5f90b87a4e7eebb6d5613f8"
+    },
+    "android": {
+      "version": "1.0.0-rc.5-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.5/Starlit-Android-1.0.0-rc.5-local-arm64.apk",
+      "size": 25306003,
+      "sha256": "c80ea4aa5b1f3177aedea2e1b61e3215f965489c7ba7caf9a8150bf08941a8fb"
+    }
+  }
+}
