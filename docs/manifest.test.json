@@ -3,9 +3,9 @@
   "channel": "test",
   "releasedAt": "2026-10-29",
   "notes": [
-    "修复安卓后台引擎注册系统信号导致的启动异常",
-    "后台线程不再调用仅主线程可用的 set_wakeup_fd",
-    "保留桌面退出与安卓同步停止机制"
+    "加载页改为星野背景与圆角玻璃卡片",
+    "内置星野与另外九位伙伴及一个群聊",
+    "覆盖升级保留现有配置，群聊不包含历史消息"
   ],
   "platforms": {
     "windows": {
@@ -15,10 +15,10 @@
       "sha256": "776ff7b39ee9d2eafc949a8d5d072efa63fa3fcde439c55bb7ee33d580bd53d4"
     },
     "android": {
-      "version": "1.0.0-rc.8-local",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.8/Starlit-Android-1.0.0-rc.8-local-arm64.apk",
-      "size": 25681615,
-      "sha256": "e8dc7c9591cbbaa4b587778bca4e620f23132c90dedb919db30cf4ead9780593"
+      "version": "1.0.0-rc.9-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.9/Starlit-Android-1.0.0-rc.9-local-arm64.apk",
+      "size": 27622131,
+      "sha256": "d832fb0fecdd2a36fc94492fb6214d77c7d7003630967031727bb09ef381151f"
     }
   }
 }
