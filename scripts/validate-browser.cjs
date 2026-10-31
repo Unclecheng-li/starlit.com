@@ -121,8 +121,8 @@ async function main() {
   await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', ...clickPoint, button: 'left', clickCount: 1 });
   await sleep(200);
   for (let index = 0; index < 10; index++) {
-    const state = await evaluate(`({ open: document.querySelector('#characterDialog').open, name: document.querySelector('#dialogName').textContent, profile: !!document.querySelector('.dialog-profile'), navigation: document.querySelectorAll('[data-character-step]').length })`);
-    assert(state.open && state.profile && state.navigation === 2, `角色弹窗不完整：${JSON.stringify(state)}`);
+    const state = await evaluate(`({ open: document.querySelector('#characterDialog').open, name: document.querySelector('#dialogName').textContent, profile: !!document.querySelector('.dialog-profile'), navigation: document.querySelectorAll('[data-character-step]').length, cursor: getComputedStyle(document.querySelector('#dialogClose')).cursor })`);
+    assert(state.open && state.profile && state.navigation === 2 && state.cursor !== 'none', `角色弹窗不完整或指针隐藏：${JSON.stringify(state)}`);
     names.push(state.name);
     if (index === 0) await shot('home-character-desktop');
     await evaluate(`document.querySelector('[data-character-step="1"]').click()`);

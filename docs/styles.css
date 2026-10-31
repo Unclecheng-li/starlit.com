@@ -496,3 +496,10 @@
 
 /* Decorative layers may extend beyond the canvas, but never create horizontal scrolling. */
 html,body{overflow-x:clip}
+
+/* Top-layer dialogs need a real pointer: the custom halo cannot sit above them. */
+@media(pointer:fine){
+  .js .character-dialog,.js .character-dialog *,.js .qr-dialog,.js .qr-dialog *{cursor:auto}
+  .js .character-dialog a,.js .character-dialog button,.js .character-dialog [role="button"],
+  .js .qr-dialog a,.js .qr-dialog button,.js .qr-dialog [role="button"]{cursor:pointer}
+}
