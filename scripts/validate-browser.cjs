@@ -111,7 +111,14 @@ async function main() {
   assert(!dragResult.selection && dragResult.after !== drag.before, `拖动验收失败：${JSON.stringify(dragResult)}`);
 
   const names = [];
-  await evaluate(`document.querySelector('.character-card').click()`);
+  await evaluate(`document.querySelector('#characterViewport').scrollTo({ left: 0 })`);
+  await sleep(350);
+  const clickPoint = await evaluate(`(() => {
+    const rect = document.querySelector('.character-card').getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  })()`);
+  await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', ...clickPoint, button: 'left', clickCount: 1 });
+  await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', ...clickPoint, button: 'left', clickCount: 1 });
   await sleep(200);
   for (let index = 0; index < 10; index++) {
     const state = await evaluate(`({ open: document.querySelector('#characterDialog').open, name: document.querySelector('#dialogName').textContent, profile: !!document.querySelector('.dialog-profile'), navigation: document.querySelectorAll('[data-character-step]').length })`);

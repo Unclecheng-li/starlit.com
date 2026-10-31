@@ -246,12 +246,17 @@ viewport.addEventListener('pointerdown', event => {
   pauseGalleryAuto();
   if (event.pointerType !== 'mouse' || event.button !== 0) return;
   isDragging = true; dragged = false; dragStartX = event.clientX; dragStartScroll = viewport.scrollLeft;
-  viewport.classList.add('dragging'); viewport.setPointerCapture(event.pointerId);
+  viewport.classList.add('dragging');
 });
 viewport.addEventListener('pointermove', event => {
   if (!isDragging) return;
   const distance = event.clientX - dragStartX;
-  if (Math.abs(distance) > 6) dragged = true;
+  if (Math.abs(distance) <= 6) return;
+  if (!dragged) {
+    dragged = true;
+    try { viewport.setPointerCapture(event.pointerId); } catch { /* 指针已结束时无需捕获 */ }
+  }
+  event.preventDefault();
   viewport.scrollLeft = dragStartScroll - distance;
 });
 function endDrag() { isDragging = false; viewport.classList.remove('dragging'); pauseGalleryAuto(1800); setTimeout(() => { dragged = false; }, 80); }
