@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
   "channel": "test",
-  "releasedAt": "2026-10-29",
+  "releasedAt": "2026-10-31",
   "notes": [
-    "加载页改为星野背景与圆角玻璃卡片",
-    "内置星野与另外九位伙伴及一个群聊",
-    "覆盖升级保留现有配置，群聊不包含历史消息"
+    "每次启动自动检查更新，发现新版本时提醒",
+    "可在设置中关闭自动检查，仍保留手动检查",
+    "新版本仍需用户确认后才会下载"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.7-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.7/Starlit-Setup-1.0.0-rc.7-personal-x64.exe",
-      "size": 919179178,
-      "sha256": "776ff7b39ee9d2eafc949a8d5d072efa63fa3fcde439c55bb7ee33d580bd53d4"
+      "version": "1.0.0-rc.10-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Setup-1.0.0-rc.10-personal-x64.exe",
+      "size": 919180372,
+      "sha256": "8cef33c9785b854ca3f7ca6ee31400a2733394c450884e1963e4856847d8a02a"
     },
     "android": {
-      "version": "1.0.0-rc.9-local",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.9/Starlit-Android-1.0.0-rc.9-local-arm64.apk",
-      "size": 27622131,
-      "sha256": "d832fb0fecdd2a36fc94492fb6214d77c7d7003630967031727bb09ef381151f"
+      "version": "1.0.0-rc.10-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Android-1.0.0-rc.10-local-arm64.apk",
+      "size": 27622095,
+      "sha256": "1e58515c6a091e927aac396e529d9fb9ad7a6e01718f9df272348cddee274624"
     }
   }
 }
