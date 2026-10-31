@@ -9,8 +9,10 @@
   <link rel="canonical" href="https://unclecheng-li.github.io/starlit.com/">
   <meta property="og:url" content="https://unclecheng-li.github.io/starlit.com/">
   <link rel="icon" href="./icon.png">
-  <link rel="stylesheet" href="./styles.css?v=7">
-  <script src="./app.js?v=7" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=8">
+  <script src="./stats-config.js?v=1"></script>
+  <script src="./stats.js?v=1" defer></script>
+  <script src="./app.js?v=8" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -21,7 +23,7 @@
   <header class="site-header" id="siteHeader">
     <div class="nav-wrap">
       <a class="brand" href="#top" aria-label="星伴首页"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a>
-      <nav class="desktop-nav" aria-label="页面导航"><a href="#characters"><span>01</span>角色宇宙</a><a href="#conversations"><span>02</span>她的日常</a><a href="#features"><span>03</span>陪伴方式</a><a href="#sync"><span>04</span>双端同步</a></nav>
+      <nav class="desktop-nav" aria-label="页面导航"><a href="#characters"><span>01</span>角色宇宙</a><a href="#conversations"><span>02</span>她的日常</a><a href="#features"><span>03</span>陪伴方式</a><a href="#sync"><span>04</span>双端同步</a><a href="#community"><span>05</span>同好社群</a></nav>
       <a class="nav-download magnetic" href="#download"><span>获取星伴</span><i>↗</i></a>
     </div>
   </header>
@@ -112,15 +114,71 @@
       </div>
     </section>
 
+    <section class="community-section" id="community">
+      <div class="community-stars" aria-hidden="true"></div>
+      <div class="community-watermark" aria-hidden="true">TOGETHER</div>
+      <div class="wrap community-wrap">
+        <div class="community-heading reveal">
+          <span class="section-kicker">05 / COMMUNITY</span>
+          <h2>故事之外，<br><span>我们在这里相遇。</span></h2>
+          <p>不止角色与你相伴，也有真实的人分享灵感与日常。<br>选一个熟悉的群，进来坐坐。</p>
+        </div>
+        <div class="community-grid">
+          <article class="community-card community-primary reveal">
+            <div class="community-card-glow" aria-hidden="true"></div>
+            <header><span>01 / COMMUNITY</span><i>QQ GROUP</i></header>
+            <div class="community-card-main">
+              <button class="qr-button" type="button" data-qr="./assets/community/qq-community.jpg" data-group="954402631" data-group-name="网络小白·蜜雪罐城" aria-label="放大网络小白·蜜雪罐城群二维码">
+                <span class="qr-frame"><img src="./assets/community/qq-community.jpg" alt="网络小白·蜜雪罐城 QQ 群二维码" loading="lazy" draggable="false"></span><span class="qr-zoom">↗</span>
+              </button>
+              <div class="community-card-copy">
+                <span class="community-label">星伴同好 · 日常交流</span>
+                <h3>网络小白·蜜雪罐城</h3>
+                <p>聊角色、聊陪伴，也聊那些不值一提却很想分享的小事。使用问题与角色灵感，都可以带来这里。</p>
+                <div class="community-tags"><span>使用交流</span><span>角色分享</span><span>日常唠嗑</span></div>
+                <div class="community-number"><small>QQ 群号</small><strong>954402631</strong></div>
+                <button class="copy-group" type="button" data-copy-group="954402631"><span>复制群号</span><b>⧉</b></button>
+              </div>
+            </div>
+            <footer><span><i></i>扫码加入</span><small>与 VulnClaw 共用社区交流群</small></footer>
+          </article>
+          <article class="community-card community-developer reveal">
+            <div class="community-card-glow" aria-hidden="true"></div>
+            <header><span>02 / DEVELOPERS</span><i>QQ GROUP</i></header>
+            <div class="community-card-main">
+              <button class="qr-button" type="button" data-qr="./assets/community/qq-developers.png" data-group="1065858551" data-group-name="起什么名字好呢" aria-label="放大开发者群二维码">
+                <span class="qr-frame"><img src="./assets/community/qq-developers.png" alt="开发者群 QQ 二维码" loading="lazy" draggable="false"></span><span class="qr-zoom">↗</span>
+              </button>
+              <div class="community-card-copy">
+                <span class="community-label">产品与源码 · 技术讨论</span>
+                <h3>起什么名字好呢</h3>
+                <p>产品建议、功能构想、构建经验与版本动态。欢迎带着想法来，也欢迎一起把想法变成下一次更新。</p>
+                <div class="community-tags"><span>产品反馈</span><span>开发交流</span><span>更新动态</span></div>
+                <div class="community-number"><small>QQ 群号</small><strong>1065858551</strong></div>
+                <button class="copy-group" type="button" data-copy-group="1065858551"><span>复制群号</span><b>⧉</b></button>
+              </div>
+            </div>
+            <footer><span><i></i>扫码加入</span><small>与 VulnClaw 共用开发者群</small></footer>
+          </article>
+        </div>
+        <div class="community-note reveal"><span>✦</span><p>两个群均与 VulnClaw 共用。星伴和开源技术都欢迎讨论，请尊重彼此，也保护好个人隐私。</p><small>BE KIND · STAY CURIOUS</small></div>
+      </div>
+    </section>
+
     <section class="download-section" id="download">
       <div class="download-stars" aria-hidden="true"></div>
       <div class="download-cast" aria-hidden="true"><img src="./assets/characters/aris.webp" alt="" loading="lazy"><img src="./assets/characters/hoshino.webp" alt="" loading="lazy"><img src="./assets/characters/hina.webp" alt="" loading="lazy"></div>
-      <div class="wrap download-content reveal"><span class="section-kicker">04 / START YOUR STORY</span><h2>下一句话，<br><span>由她说给你听。</span></h2><p>星伴 Windows 与 Android 双端已经准备好。<br>下载、安装，然后和喜欢的角色见个面吧。</p><div class="download-actions"><a class="download-button magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Setup-1.0.0-rc.10-personal-x64.exe"><span>WINDOWS<small>下载电脑安装包 · RC10 · x64</small></span><b>↓</b></a><a class="download-button download-android magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Android-1.0.0-rc.10-local-arm64.apk"><span>ANDROID<small>下载手机 APK · RC10 · ARM64</small></span><b>↓</b></a></div><div class="download-meta"><span>WINDOWS RC 10 / ANDROID RC 10</span><i></i><span>WINDOWS 约 877 MB</span><i></i><span>ANDROID 约 26.3 MB</span><i></i><span>双端自动更新</span></div></div>
+      <div class="wrap download-content reveal"><span class="section-kicker">06 / START YOUR STORY</span><h2>下一句话，<br><span>由她说给你听。</span></h2><p>星伴 Windows 与 Android 双端已经准备好。<br>下载、安装，然后和喜欢的角色见个面吧。</p><div class="download-actions"><a class="download-button magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Setup-1.0.0-rc.10-personal-x64.exe"><span>WINDOWS<small>下载电脑安装包 · RC10 · x64</small></span><b>↓</b></a><a class="download-button download-android magnetic" href="https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Android-1.0.0-rc.10-local-arm64.apk"><span>ANDROID<small>下载手机 APK · RC10 · ARM64</small></span><b>↓</b></a></div><div class="download-meta"><span>WINDOWS RC 10 / ANDROID RC 10</span><i></i><span>WINDOWS 约 877 MB</span><i></i><span>ANDROID 约 26.3 MB</span><i></i><span>双端自动更新</span></div><div class="download-live"><span><i></i>REAL DOWNLOADS</span><strong id="downloadTotal">—</strong><small id="downloadStatNote">正在读取 GitHub 下载数据…</small><a href="./admin.html">数据后台 ↗</a></div></div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="#top"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a><p>把喜欢留在身边，把陪伴留给彼此。</p><a class="back-top" href="#top">BACK TO TOP ↑</a></div><div class="wrap footer-bottom"><span>© 2026 STARLIT</span><p>聊天记录保存在本机；使用模型回复时，对话会按你的设置发送给所选模型服务商。</p><span>MADE FOR QUIET DAYS ✦</span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-main"><a class="brand" href="#top"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>STARLIT®</small></span></a><p>把喜欢留在身边，把陪伴留给彼此。</p><a class="admin-link" href="./admin.html">数据后台 ↗</a><a class="back-top" href="#top">BACK TO TOP ↑</a></div><div class="wrap footer-bottom"><span>© 2026 STARLIT</span><p>聊天记录保存在本机；使用模型回复时，对话会按你的设置发送给所选模型服务商。</p><span>MADE FOR QUIET DAYS ✦</span></div></footer>
 
   <dialog class="character-dialog" id="characterDialog" aria-labelledby="dialogName"><button class="dialog-close" id="dialogClose" type="button" aria-label="关闭角色资料">×</button><div id="dialogContent"></div></dialog>
+  <dialog class="qr-dialog" id="qrDialog" aria-labelledby="qrDialogName">
+    <button class="dialog-close" id="qrDialogClose" type="button" aria-label="关闭群二维码">×</button>
+    <div class="qr-dialog-content"><span>COMMUNITY QR</span><h2 id="qrDialogName">加入群聊</h2><img id="qrDialogImage" src="./assets/community/qq-community.jpg" alt="QQ 群二维码"><p>使用 QQ 扫一扫，或复制群号后加入</p><button class="copy-group" id="qrDialogCopy" type="button" data-copy-group="954402631"><span>复制群号</span><b>⧉</b></button></div>
+  </dialog>
+  <div class="community-toast" id="communityToast" role="status" aria-live="polite"></div>
 </body>
 </html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0911">
+  <meta name="description" content="星伴官网只读数据后台：真实 Release 下载量与匿名 DAU、MAU。">
+  <title>星伴数据观测台 · Starlit Observer</title>
+  <link rel="icon" href="./icon.png">
+  <link rel="stylesheet" href="./styles.css?v=8">
+  <link rel="stylesheet" href="./admin.css?v=1">
+  <script src="./stats-config.js?v=1"></script>
+  <script src="./stats.js?v=1" defer></script>
+</head>
+<body class="admin-page">
+  <div class="admin-aurora" aria-hidden="true"></div>
+  <div class="admin-grid-bg" aria-hidden="true"></div>
+  <header class="admin-header">
+    <a class="brand" href="./index.html" aria-label="返回星伴首页"><span class="brand-mark"><img src="./icon.png" alt=""></span><span class="brand-name">星伴<small>OBSERVER</small></span></a>
+    <div class="admin-header-actions"><span class="read-only"><i></i>只读数据后台</span><a href="./index.html">返回官网 ↗</a><button id="refreshStats" type="button"><span>刷新数据</span><b>↻</b></button></div>
+  </header>
+
+  <main class="admin-main" id="adminDashboard">
+    <section class="admin-hero">
+      <div><span class="admin-kicker">STARLIT OBSERVER / 2026</span><h1>每一次相遇，<br><span>都有迹可循。</span></h1></div>
+      <div class="admin-hero-note"><span>PUBLIC METRICS · PRIVATE PEOPLE</span><p>看见产品的生长，不窥见任何人的生活。<br>下载与活跃分源统计，所有异常都如实呈现。</p></div>
+    </section>
+
+    <section class="metric-grid" aria-label="核心数据">
+      <article class="metric-card metric-total"><span class="metric-index">01</span><div class="metric-icon">↓</div><small>全端累计下载</small><strong id="metricDownloads">—</strong><p>GitHub Releases 实时汇总</p></article>
+      <article class="metric-card"><span class="metric-index">02</span><div class="metric-icon">⊞</div><small>Windows 下载</small><strong id="metricWindows">—</strong><p>全部 EXE Release 资产</p></article>
+      <article class="metric-card metric-android"><span class="metric-index">03</span><div class="metric-icon">◇</div><small>Android 下载</small><strong id="metricAndroid">—</strong><p>全部 APK Release 资产</p></article>
+      <article class="metric-card metric-activity"><span class="metric-index">04</span><div class="metric-icon">✦</div><small>DAU · 今日访客</small><strong id="metricDau">—</strong><p>当日匿名去重</p></article>
+      <article class="metric-card metric-activity"><span class="metric-index">05</span><div class="metric-icon">∞</div><small>MAU · 近 30 日</small><strong id="metricMau">—</strong><p>滚动 30 日匿名去重</p></article>
+    </section>
+
+    <section class="admin-content-grid">
+      <article class="admin-panel activity-panel">
+        <header class="panel-header"><div><span>ANONYMOUS ACTIVITY</span><h2>近 14 日访问趋势</h2></div><small>DAU / DAY</small></header>
+        <div class="activity-chart" id="activityChart"><div class="chart-empty"><span>✦</span><strong>正在读取匿名趋势</strong><p>请稍候。</p></div></div>
+        <footer class="panel-footer"><span id="activityStatus">正在检查匿名统计接口…</span><a href="https://github.com/Unclecheng-li/starlit.com" target="_blank" rel="noopener">公开仓库 ↗</a></footer>
+      </article>
+      <aside class="admin-panel source-panel">
+        <header class="panel-header"><div><span>DATA CONTRACT</span><h2>数字从哪里来</h2></div></header>
+        <div class="source-item"><span>01</span><div><strong>下载量</strong><p>读取 GitHub Releases 资产的 download_count，不等于官网按钮点击次数。</p></div></div>
+        <div class="source-item"><span>02</span><div><strong>DAU / MAU</strong><p>随机访客 ID 经加盐哈希后按日去重；MAU 使用滚动 30 天窗口。</p></div></div>
+        <div class="source-item"><span>03</span><div><strong>隐私边界</strong><p>不写入 IP、QQ 号、聊天记录或模型配置。没有数据时，不会用模拟数字补齐。</p></div></div>
+        <div class="source-status"><i></i><span id="downloadStatus">正在连接 GitHub…</span></div>
+      </aside>
+    </section>
+
+    <section class="admin-panel releases-panel">
+      <header class="panel-header"><div><span>RELEASE INVENTORY</span><h2>安装包下载明细</h2></div><a href="https://github.com/Unclecheng-li/starlit.com/releases" target="_blank" rel="noopener">全部 Releases ↗</a></header>
+      <div class="release-table-wrap"><table><thead><tr><th>版本 / 安装包</th><th>平台</th><th>下载量</th><th><span class="sr-only">下载</span></th></tr></thead><tbody id="releaseRows"><tr><td colspan="4" class="empty-cell">正在读取 Release 数据…</td></tr></tbody></table></div>
+    </section>
+
+    <section class="admin-footnote"><span>✦</span><p>统计仅用于观察星伴官网与发布资源的使用情况。DAU／MAU 按 UTC 日期计算，代表官网匿名访客，不代表客户端聊天用户。</p><small>LESS TRACKING · MORE CLARITY</small></section>
+  </main>
+</body>
+</html>

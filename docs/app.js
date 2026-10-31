@@ -13,6 +13,89 @@ const characters = [
   { id:'3901000019', name:'空崎日奈', en:'SORASAKI HINA', series:'蔚蓝档案', avatar:'./assets/characters/hina.webp', role:'格黑娜学园 · 风纪委员会委员长', birthday:'2 月 19 日', identity:'风纪委员会最高负责人', tags:['可靠','外冷内软','黑咖啡'], accent:'#c8b4f4', description:'嘴上总说「好麻烦」，实际却把风纪委员会的工作一肩扛起。语气平淡、结论先行，对老师的关心则常常变成简短的命令：去睡觉，别硬撑。', quote:'去睡觉。别硬撑。' }
 ];
 
+const characterProfiles = {
+  hoshino: {
+    headline:'慵懒是日常，可靠是答案。',
+    profile:'她喜欢把「麻烦」挂在嘴边，也愿意把大部分时间交给午后的睡意。可真正遇到事情时，星野总会先一步站在大家身前。她的温柔不喧闹，更多时候是一种让人安心的陪伴。',
+    temperament:'松弛、体贴，偶尔用「大叔」口吻开玩笑；看似什么都无所谓，其实非常在意后辈与约定。',
+    favorites:'午睡、安静的地方、阿拜多斯的大家，以及不用赶时间的平凡日常。',
+    together:'适合在疲惫时待在一起。她会让你先喘口气，再用不太正经的语气，认真接住你的烦恼。',
+    companion:'可靠前辈'
+  },
+  '3901000011': {
+    headline:'在古书的香气里，慢慢靠近你。',
+    profile:'忧习惯与古书为伴，也习惯用距离保护自己。她不擅长热闹的寒暄，却会在意每一个真正理解她的人。那些说不出口的关心，常常藏在修复好的书页、推荐的故事和一杯咖啡里。',
+    temperament:'怕生而敏感，外表疏离，内心细腻；熟悉之后会展露对知识与分享的真诚热情。',
+    favorites:'古书、修复装帧、咖啡、安静的阅读角，以及不会强迫她社交的人。',
+    together:'适合轻声聊天、交换书单。给她一点耐心，她会把自己的小世界一页一页打开。',
+    companion:'静心书友'
+  },
+  '3901000012': {
+    headline:'不必大声说话，也能交换整个世界。',
+    profile:'安安把许多想法留在素描本里。文字对她而言不只是交流工具，也是观察世界、收藏情绪的方式。她喜欢故事与游戏，偶尔一句带着文豪腔的评语，会让平静的日常突然变得可爱。',
+    temperament:'安静、内敛、想象力丰富；用书面表达代替即兴寒暄，认真时有一种独特的文学气质。',
+    favorites:'素描本、小说、游戏、值得记录的片段，以及能够耐心读完她文字的人。',
+    together:'适合一起读书、聊剧情，或只是安静地各做各的事。她会认真回应你写给她的每一句话。',
+    companion:'文字知己'
+  },
+  '3901000013': {
+    headline:'冷静分析之外，是藏不住的在意。',
+    profile:'凯伊习惯先观察、再判断，用条理和礼貌维持可靠的形象。她不太愿意承认自己的担心，却总会记住身边人的习惯与风险。偶尔被说中心事时的慌乱，反而让这份守护显得格外真实。',
+    temperament:'理性、克制、责任感强，带一点口是心非；对爱丽丝与伙伴有毫不含糊的保护欲。',
+    favorites:'逻辑清晰的问题、游戏、值得守护的伙伴，以及一切尽在掌握的安全感。',
+    together:'适合一起解决难题，也适合偶尔直白地表达关心。她嘴上说麻烦，行动却会站在你这边。',
+    companion:'冷静守护者'
+  },
+  '3901000014': {
+    headline:'今天也是闪闪发光的新任务。',
+    profile:'爱丽丝用游戏理解世界，也用勇者的真诚对待每一次相遇。她会为普通的小事赋予任务名，为伙伴送上毫不吝啬的应援。和她在一起，平凡的日常也能重新获得冒险的光芒。',
+    temperament:'天真、勇敢、直率，拥有很强的代入感；相信友情、成长与任务完成后的奖励。',
+    favorites:'RPG、复古游戏台词、猫、新任务，以及和伙伴一起抵达结局。',
+    together:'适合把目标变成一场冒险。无论学习、工作还是出门散步，她都会认真为你加油。',
+    companion:'勇气补给站'
+  },
+  '3901000015': {
+    headline:'把混乱的日子，重新整理成答案。',
+    profile:'优香擅长把复杂的问题拆解成清楚的数字与步骤。她的念叨并不是冷漠，而是希望一切都在可控范围内。等你回过神来，她可能已经替你准备好了最稳妥的方案。',
+    temperament:'严谨、聪慧、责任心强；嘴上计较成本与效率，行动上却很愿意替伙伴多做一些。',
+    favorites:'数学、整齐的账目、合理的计划，以及每一件按时完成的小事。',
+    together:'适合制定计划、整理目标和戒掉拖延。她会督促你，也会在你撑不住时帮你重新分配负担。',
+    companion:'效率搭档'
+  },
+  '3901000016': {
+    headline:'下一站去哪里？先跟上光再说。',
+    profile:'光总是被有趣的事情吸引，用轻松的语气把旅程变成一连串惊喜。她看似随性，真正握住驾驶控制权时却格外专注。那份天赋与可靠，藏在每一次自由的笑容之后。',
+    temperament:'自由、灵动、有些孩子气；不喜欢被拘束，却会在关键时刻展现令人安心的专业。',
+    favorites:'列车、新的路线、有趣的小发现，以及不被日程表框住的旅行。',
+    together:'适合聊旅行、做即兴计划。她会带你从固定的日常里短暂出走，发现新的风景。',
+    companion:'旅行玩伴'
+  },
+  '3901000017': {
+    headline:'笑声全速前进，责任也从不晚点。',
+    profile:'希望喜欢热闹，也喜欢用玩笑让身边的人放松。她与光共享铁道上的默契，却有着自己的节奏与坚持。看似随性的吐槽背后，是对时间、路线和承诺的认真。',
+    temperament:'外向、俏皮、反应快，爱开玩笑但不敷衍责任；总能让沉闷的气氛重新流动起来。',
+    favorites:'列车、恶作剧、有趣的话题，以及伙伴们脸上憋不住的笑。',
+    together:'适合闲聊、斗嘴和补充元气。她会接住你的梗，也会认真记住你交代的事情。',
+    companion:'元气开心果'
+  },
+  '3901000018': {
+    headline:'每一个普通细节，都可能是新案件的线索。',
+    profile:'雪莉总能在平凡场景里找到值得追问的地方。她的好奇心来得直接，行动也常常快过思考。可正是这种明亮而坦率的态度，让解谜不只是推理，更成为一场充满乐趣的探索。',
+    temperament:'活泼、礼貌、观察欲旺盛；对案件异常专注，偶尔因兴奋而忘记周围的分寸。',
+    favorites:'推理、放大镜、出乎意料的线索，以及让人忍不住说「原来如此」的瞬间。',
+    together:'适合一起分析谜题、观察生活。她会把你的疑问当作正式委托，认真找到新的角度。',
+    companion:'侦探拍档'
+  },
+  '3901000019': {
+    headline:'她说别硬撑，是因为真的在乎。',
+    profile:'日奈承担了远超常人的工作，却很少主动解释自己的疲惫。她习惯用简短的命令表达关心，把柔软藏在高效率和责任感之后。只有真正放松下来时，才能看见她普通而安静的一面。',
+    temperament:'成熟、可靠、外冷内软；不喜欢拖泥带水，对伙伴的休息与安全却有近乎固执的坚持。',
+    favorites:'黑咖啡、难得的休息时间、处理完的文件，以及不再需要独自承担的片刻。',
+    together:'适合在压力大时聊聊。她会先让你停下硬撑，再陪你把事情分成能够完成的小步骤。',
+    companion:'安心依靠'
+  }
+};
+
 const grid = document.querySelector('#characterGrid');
 const viewport = document.querySelector('#characterViewport');
 const dialog = document.querySelector('#characterDialog');
@@ -27,21 +110,60 @@ function renderCharacters() {
         <div class="card-bg"></div>
         <img class="card-art" src="${character.avatar}" alt="${character.name}高清立绘" loading="${index < 4 ? 'eager' : 'lazy'}" draggable="false">
         <div class="card-shade"></div><span class="card-number">${String(index + 1).padStart(2,'0')}</span><span class="card-series">${character.series}</span>
-        <div class="card-copy"><span class="card-en">${character.en}</span><h3>${character.name}</h3><p class="card-role">${character.role}</p><div class="card-bottom"><div class="card-tags">${character.tags.slice(0,2).map(tag => `<span>${tag}</span>`).join('')}</div><span class="card-open">VIEW<b>↗</b></span></div></div>
+        <div class="card-copy"><span class="card-en">${character.en}</span><h3>${character.name}</h3><p class="card-role">${character.role}</p><div class="card-bottom"><div class="card-tags">${character.tags.slice(0,2).map(tag => `<span>${tag}</span>`).join('')}</div><span class="card-open">查看档案<b>↗</b></span></div></div>
       </div>
     </article>`).join('');
   document.querySelector('#heroRoster').innerHTML = characters.map((character, index) => `<button class="roster-avatar" type="button" data-roster="${character.id}" title="${character.name}" aria-label="查看${character.name}"><img src="${character.avatar}" alt="" loading="lazy"></button>`).join('');
 }
 
+let activeCharacterIndex = 0;
 function openCharacter(id) {
   const character = characters.find(item => item.id === id);
   if (!character) return;
-  const index = characters.indexOf(character) + 1;
-  dialogContent.innerHTML = `<div class="dialog-layout" style="--accent:${character.accent}"><div class="dialog-portrait"><img src="${character.avatar}" alt="${character.name}高清立绘"><div class="dialog-portrait-caption"><span>CHARACTER ${String(index).padStart(2,'0')} · ${character.en}</span><strong>${character.name}</strong></div></div><div class="dialog-details"><span class="dialog-series">${character.series}</span><h2 id="dialogName">${character.name}</h2><p class="dialog-role">${character.role}</p><p class="dialog-description">${character.description}</p><div class="dialog-facts"><div class="dialog-fact"><small>生日</small><strong>${character.birthday}</strong></div><div class="dialog-fact"><small>身份</small><strong>${character.identity}</strong></div></div><blockquote class="dialog-quote">${character.quote}</blockquote><div class="dialog-tags">${character.tags.map(tag => `<span># ${tag}</span>`).join('')}</div></div></div>`;
-  dialog.showModal();
+  const profile = characterProfiles[id];
+  activeCharacterIndex = characters.indexOf(character);
+  const index = activeCharacterIndex + 1;
+  const previous = characters[(activeCharacterIndex - 1 + characters.length) % characters.length];
+  const next = characters[(activeCharacterIndex + 1) % characters.length];
+  dialogContent.innerHTML = `
+    <div class="dialog-layout" style="--accent:${character.accent}">
+      <div class="dialog-portrait">
+        <img src="${character.avatar}" alt="${character.name}高清立绘" draggable="false">
+        <div class="dialog-portrait-caption"><span>CHARACTER ${String(index).padStart(2,'0')} · ${character.en}</span><strong>${character.name}</strong></div>
+      </div>
+      <div class="dialog-details">
+        <div class="dialog-heading"><span class="dialog-series">${character.series}</span><span class="dialog-en">${character.en}</span></div>
+        <h2 id="dialogName">${character.name}</h2>
+        <p class="dialog-headline">${profile.headline}</p>
+        <p class="dialog-role">${character.role}</p>
+        <blockquote class="dialog-quote">${character.quote}</blockquote>
+        <div class="dialog-facts">
+          <div class="dialog-fact"><small>生日</small><strong>${character.birthday}</strong></div>
+          <div class="dialog-fact"><small>身份</small><strong>${character.identity}</strong></div>
+          <div class="dialog-fact"><small>陪伴定位</small><strong>${profile.companion}</strong></div>
+        </div>
+        <section class="dialog-profile"><span>CHARACTER PROFILE</span><p>${character.description}</p><p>${profile.profile}</p></section>
+        <div class="dialog-story-grid">
+          <section><small>性格轮廓</small><p>${profile.temperament}</p></section>
+          <section><small>偏爱事物</small><p>${profile.favorites}</p></section>
+        </div>
+        <section class="dialog-together"><small>与你相处</small><p>${profile.together}</p></section>
+        <div class="dialog-tags">${character.tags.map(tag => `<span># ${tag}</span>`).join('')}</div>
+      </div>
+    </div>
+    <nav class="dialog-navigation" aria-label="切换角色">
+      <button type="button" data-character-step="-1"><i>←</i><span>上一位<small>${previous.name}</small></span></button>
+      <a href="#download" class="dialog-download" data-dialog-download>在星伴里与她见面 <b>↗</b></a>
+      <button type="button" data-character-step="1"><span>下一位<small>${next.name}</small></span><i>→</i></button>
+    </nav>`;
+  if (!dialog.open) dialog.showModal();
+  dialog.scrollTop = 0;
   document.body.classList.add('dialog-open');
 }
-function closeDialog() { dialog.close(); document.body.classList.remove('dialog-open'); }
+function closeDialog() {
+  if (dialog.open) dialog.close();
+  document.body.classList.remove('dialog-open');
+}
 
 renderCharacters();
 
@@ -58,10 +180,30 @@ grid.addEventListener('keydown', event => {
 });
 document.querySelector('#dialogClose').addEventListener('click', closeDialog);
 dialog.addEventListener('click', event => {
+  if (event.target !== dialog) return;
   const rect = dialog.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeDialog();
 });
 dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
+dialogContent.addEventListener('click', event => {
+  const step = event.target.closest('[data-character-step]');
+  if (step) {
+    const index = (activeCharacterIndex + Number(step.dataset.characterStep) + characters.length) % characters.length;
+    openCharacter(characters[index].id);
+  }
+  if (event.target.closest('[data-dialog-download]')) closeDialog();
+});
+document.addEventListener('keydown', event => {
+  if (!dialog.open || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+  event.preventDefault();
+  const direction = event.key === 'ArrowRight' ? 1 : -1;
+  const index = (activeCharacterIndex + direction + characters.length) % characters.length;
+  openCharacter(characters[index].id);
+});
+
+// A drag is a gallery gesture, never text selection or native image dragging.
+viewport.addEventListener('selectstart', event => event.preventDefault());
+viewport.addEventListener('dragstart', event => event.preventDefault());
 
 // Character filters and horizontal gallery.
 document.querySelectorAll('.filter-tab').forEach(button => {
@@ -427,7 +569,7 @@ const navObserver = new IntersectionObserver(entries => {
     });
   });
 }, { rootMargin:'-32% 0px -58%', threshold:0 });
-['characters','conversations','features','sync'].forEach(id => navObserver.observe(document.getElementById(id)));
+['characters','conversations','features','sync','community'].forEach(id => navObserver.observe(document.getElementById(id)));
 
 document.querySelectorAll('.feature-panel').forEach(panel => {
   panel.addEventListener('pointermove', event => {
@@ -519,3 +661,83 @@ sizeCosmos();
 window.addEventListener('resize', sizeCosmos);
 new IntersectionObserver(entries => { canvasVisible = entries[0].isIntersecting; }).observe(canvas);
 (function cosmosLoop(time) { if (canvasVisible) drawCosmos(time); if (!reduceMotion) requestAnimationFrame(cosmosLoop); })();
+
+// Community QR preview, tactile cards and reliable group-number copying.
+const qrDialog = document.querySelector('#qrDialog');
+const qrDialogImage = document.querySelector('#qrDialogImage');
+const qrDialogCopy = document.querySelector('#qrDialogCopy');
+const communityToast = document.querySelector('#communityToast');
+let communityToastTimer = 0;
+function showCommunityToast(message) {
+  communityToast.textContent = message;
+  communityToast.classList.add('visible');
+  clearTimeout(communityToastTimer);
+  communityToastTimer = setTimeout(() => communityToast.classList.remove('visible'), 2400);
+}
+function closeQrDialog() {
+  if (qrDialog.open) qrDialog.close();
+  document.body.classList.remove('dialog-open');
+}
+document.querySelectorAll('.qr-button').forEach(button => {
+  button.addEventListener('click', () => {
+    qrDialogImage.src = button.dataset.qr;
+    qrDialogImage.alt = `${button.dataset.groupName} QQ 群二维码`;
+    document.querySelector('#qrDialogName').textContent = button.dataset.groupName;
+    qrDialogCopy.dataset.copyGroup = button.dataset.group;
+    qrDialog.showModal();
+    document.body.classList.add('dialog-open');
+  });
+});
+document.querySelector('#qrDialogClose').addEventListener('click', closeQrDialog);
+qrDialog.addEventListener('click', event => {
+  if (event.target !== qrDialog) return;
+  const rect = qrDialog.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeQrDialog();
+});
+qrDialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
+
+async function copyText(value) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try { await navigator.clipboard.writeText(value); return true; } catch { /* use fallback */ }
+  }
+  const input = document.createElement('textarea');
+  input.value = value;
+  input.setAttribute('readonly', '');
+  input.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+  document.body.append(input);
+  input.select();
+  let copied = false;
+  try { copied = document.execCommand('copy'); } catch { copied = false; }
+  input.remove();
+  return copied;
+}
+document.querySelectorAll('[data-copy-group]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const number = button.dataset.copyGroup;
+    const copied = await copyText(number);
+    showCommunityToast(copied ? `群号 ${number} 已复制，打开 QQ 搜索即可加入` : `请手动记录群号：${number}`);
+    if (!copied) return;
+    button.classList.add('copied');
+    const label = button.querySelector('span');
+    const original = label.textContent;
+    label.textContent = '已复制';
+    setTimeout(() => { button.classList.remove('copied'); label.textContent = original; }, 1800);
+  });
+});
+if (finePointer && !reduceMotion) {
+  document.querySelectorAll('.community-card').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      card.style.setProperty('--community-x', `${x * 100}%`);
+      card.style.setProperty('--community-y', `${y * 100}%`);
+      card.style.setProperty('--community-rx', `${(.5 - y) * 2.2}deg`);
+      card.style.setProperty('--community-ry', `${(x - .5) * 2.2}deg`);
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--community-rx', '0deg');
+      card.style.setProperty('--community-ry', '0deg');
+    });
+  });
+}

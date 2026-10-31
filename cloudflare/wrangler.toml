@@ -1,0 +1,11 @@
+name = "starlit-stats"
+main = "worker.js"
+compatibility_date = "2026-10-31"
+
+[vars]
+ALLOWED_ORIGIN = "https://unclecheng-li.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "starlit_stats"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"

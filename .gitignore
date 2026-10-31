@@ -3,6 +3,7 @@ preview-*
 originals-contact.jpg
 .edge-*/
 preview-server.*
+artifacts/
 
 # Large local installers are distributed through GitHub Releases
 docs/downloads/
