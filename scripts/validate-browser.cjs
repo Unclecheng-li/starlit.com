@@ -80,21 +80,29 @@ async function main() {
   const assert = (condition, message) => { if (!condition) throw new Error(message); };
   await cdp('Runtime.enable');
   await cdp('Page.enable');
+  await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await navigate(`${origin}/`);
   for (let attempt = 0; attempt < 60; attempt++) {
     if (await evaluate(`document.querySelectorAll('.character-card').length === 10 && document.querySelectorAll('.community-card').length === 2`)) break;
     await sleep(150);
   }
+  await sleep(1400);
   const initial = await evaluate(`({
     cards: document.querySelectorAll('.character-card').length,
     communities: document.querySelectorAll('.community-card').length,
+    heroImageLoaded: document.querySelector('.hero-image-wrap img').naturalWidth > 0,
     selection: getComputedStyle(document.querySelector('.character-card')).userSelect,
     overflow: (() => { const x = scrollX; window.scrollTo(80, scrollY); const moved = scrollX !== x; window.scrollTo(x, scrollY); return moved; })(),
     widths: [innerWidth, document.body.scrollWidth, document.documentElement.scrollWidth]
   })`);
-  assert(initial.cards === 10 && initial.communities === 2, `页面结构不完整：${JSON.stringify(initial)}`);
+  assert(initial.cards === 10 && initial.communities === 2 && initial.heroImageLoaded, `页面结构不完整：${JSON.stringify(initial)}`);
   assert(initial.selection === 'none' && !initial.overflow, `长廊选择或溢出异常：${JSON.stringify(initial)}`);
+  const heroShot = await shot('home-hero-cinema');
+  await evaluate(`window.scrollTo({ top: document.querySelector('#top').offsetHeight * .45, behavior: 'instant' })`);
+  await sleep(500);
+  const cinema = await evaluate(`({ progress: Number(document.querySelector('#top').style.getPropertyValue('--hero-progress')), warp: !!document.querySelector('.hero-warp'), canvas: document.querySelector('#cosmos').width > 0 })`);
+  assert(cinema.progress > 0 && cinema.warp && cinema.canvas, `星轨镜头未生效：${JSON.stringify(cinema)}`);
 
   await evaluate(`document.querySelector('#characters').scrollIntoView()`);
   await sleep(350);
@@ -121,14 +129,22 @@ async function main() {
   await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', ...clickPoint, button: 'left', clickCount: 1 });
   await sleep(200);
   for (let index = 0; index < 10; index++) {
-    const state = await evaluate(`({ open: document.querySelector('#characterDialog').open, name: document.querySelector('#dialogName').textContent, profile: !!document.querySelector('.dialog-profile'), navigation: document.querySelectorAll('[data-character-step]').length, cursor: getComputedStyle(document.querySelector('#dialogClose')).cursor })`);
+    const state = await evaluate(`({ open: document.querySelector('#characterDialog').open, name: document.querySelector('#dialogName').textContent, profile: !!document.querySelector('.dialog-profile'), navigation: document.querySelectorAll('[data-character-step]').length, cursor: getComputedStyle(document.querySelector('#dialogClose')).cursor, flights: document.querySelector('.dialog-portrait img').getAnimations().length })`);
     assert(state.open && state.profile && state.navigation === 2 && state.cursor !== 'none', `角色弹窗不完整或指针隐藏：${JSON.stringify(state)}`);
+    if (index === 0) assert(state.flights > 0, `立绘共享转场未生效：${JSON.stringify(state)}`);
     names.push(state.name);
-    if (index === 0) await shot('home-character-desktop');
+    if (index === 0) { await sleep(800); await shot('home-character-desktop'); }
     await evaluate(`document.querySelector('[data-character-step="1"]').click()`);
   }
   assert(new Set(names).size === 10 && names[0] === '小鸟游星野', `十位角色切换失败：${names.join(',')}`);
   await evaluate(`document.querySelector('#dialogClose').click()`);
+
+  await evaluate(`document.querySelector('#memoryGalaxy').scrollIntoView({ block: 'center' })`);
+  await sleep(350);
+  await evaluate(`document.querySelector('.star-two').click()`);
+  const memory = await evaluate(`({ title: document.querySelector('#memoryLiveTitle').textContent, quote: document.querySelector('#memoryLiveQuote').textContent, selected: document.querySelector('.star-two').classList.contains('selected'), stars: document.querySelectorAll('.memory-choice').length })`);
+  assert(memory.title.includes('日奈') && memory.quote.includes('三次') && memory.selected && memory.stars === 4, `记忆星河交互失败：${JSON.stringify(memory)}`);
+  const memoryShot = await shot('home-memory-galaxy');
 
   await evaluate(`document.querySelector('#community').scrollIntoView()`);
   await sleep(500);
@@ -179,7 +195,7 @@ async function main() {
   assert(mobileDialog.open && mobileDialog.width < mobileDialog.viewport, `手机角色弹窗失败：${JSON.stringify(mobileDialog)}`);
   const mobileDialogShot = await shot('home-character-mobile');
   assert(errors.length === 0, `浏览器脚本异常：${JSON.stringify(errors)}`);
-  console.log(JSON.stringify({ ok: true, initial, dragResult, characters: names, copied, admin, mobile, screenshots: [communityShot, adminShot, mobileShot, mobileDialogShot] }, null, 2));
+  console.log(JSON.stringify({ ok: true, initial, cinema, dragResult, characters: names, memory, copied, admin, mobile, screenshots: [heroShot, memoryShot, communityShot, adminShot, mobileShot, mobileDialogShot] }, null, 2));
 }
 
 main().catch(error => {

@@ -503,3 +503,51 @@ html,body{overflow-x:clip}
   .js .character-dialog a,.js .character-dialog button,.js .character-dialog [role="button"],
   .js .qr-dialog a,.js .qr-dialog button,.js .qr-dialog [role="button"]{cursor:pointer}
 }
+
+/* Star-track cinema: layered depth driven by native scroll, no WebGL required. */
+.hero{--hero-progress:0}
+.hero::after{content:"";position:absolute;z-index:2;inset:0;box-shadow:inset 0 0 180px 35px rgba(3,2,8,.62);pointer-events:none}
+.hero-warp{position:absolute;z-index:1;inset:0;overflow:hidden;perspective:900px;pointer-events:none;opacity:calc(.16 + var(--hero-progress) * .42)}
+.hero-warp i{position:absolute;left:58%;top:44%;width:48vmin;height:48vmin;border:1px solid rgba(197,164,241,.2);border-radius:50%;box-shadow:0 0 45px rgba(161,111,220,.06),inset 0 0 45px rgba(161,111,220,.05);transform:translate(-50%,-50%) rotateX(67deg) rotateZ(calc(var(--hero-progress) * 160deg)) scale(calc(.65 + var(--hero-progress) * 1.25));transition:border-color .6s}
+.hero-warp i:nth-child(2){width:72vmin;height:72vmin;border-style:dashed;border-color:rgba(147,211,211,.14);transform:translate(-50%,-50%) rotateX(71deg) rotateZ(calc(var(--hero-progress) * -115deg)) scale(calc(.55 + var(--hero-progress) * 1.35))}
+.hero-warp i:nth-child(3){width:96vmin;height:96vmin;border-color:rgba(221,190,255,.08);transform:translate(-50%,-50%) rotateX(74deg) rotateZ(calc(var(--hero-progress) * 80deg)) scale(calc(.45 + var(--hero-progress) * 1.45))}
+.hero-warp>span{position:absolute;left:58%;top:44%;transform:translate(-50%,-50%);color:rgba(224,202,255,.75);font-size:22px;text-shadow:0 0 28px #b893e5;animation:breathe 4s ease-in-out infinite}
+.hero-camera{position:absolute;z-index:4;right:28px;top:112px;display:flex;align-items:center;gap:11px;color:#655770;font-size:6px;letter-spacing:.17em;pointer-events:none}
+.hero-camera i{display:block;width:44px;height:1px;background:linear-gradient(90deg,#715489,transparent);transform-origin:left;transform:scaleX(calc(.3 + var(--hero-progress) * .7))}
+.hero-camera small{color:#4e4359;font-size:5px;letter-spacing:.13em}
+.hero-giant-word{will-change:transform}
+@media(min-width:901px){
+  .hero-giant-word{transform:translateX(-50%) translateY(calc(var(--hero-progress) * -95px)) scale(calc(1 + var(--hero-progress) * .16))}
+  .hero-copy{transform:translateY(calc(var(--hero-progress) * -18px));transition:transform .12s linear}
+}
+@media(max-width:900px){.hero-warp{opacity:.16}.hero-warp i{left:50%;width:70vmin;height:70vmin}.hero-warp>span{left:50%}.hero-camera{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-warp,.hero-camera{display:none}.hero-copy{transform:none}}
+
+/* Dossier entrance and the interactive memory constellation. */
+.dialog-details>*{animation:dossierEnter .55s var(--ease) both}
+.dialog-details>*:nth-child(2){animation-delay:.04s}.dialog-details>*:nth-child(3){animation-delay:.07s}.dialog-details>*:nth-child(4){animation-delay:.1s}.dialog-details>*:nth-child(5){animation-delay:.13s}.dialog-details>*:nth-child(n+6){animation-delay:.16s}
+@keyframes dossierEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.memory-scene{isolation:isolate}
+.memory-scene::before{content:"";position:absolute;z-index:-1;inset:0;background-image:radial-gradient(circle,rgba(218,192,240,.55) 0 1px,transparent 1.4px),radial-gradient(circle,rgba(157,208,198,.35) 0 1px,transparent 1.3px);background-position:0 0,31px 43px;background-size:83px 83px,109px 109px;opacity:.32;pointer-events:none}
+.memory-nebula{position:absolute;z-index:-1;inset:-20%;background:radial-gradient(circle at 42% 35%,rgba(169,120,213,.2),transparent 32%),radial-gradient(circle at 72% 72%,rgba(116,188,184,.12),transparent 30%);animation:memoryNebula 12s ease-in-out infinite alternate}
+.memory-links{position:absolute;z-index:0;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.memory-links path{fill:none;stroke:rgba(202,170,230,.44);stroke-width:1.2;stroke-dasharray:5 7;vector-effect:non-scaling-stroke;animation:memoryDash 18s linear infinite}
+.memory-links path:last-child{stroke:rgba(137,198,190,.24);stroke-dasharray:2 9}
+.memory-msg.memory-choice{font:inherit;text-align:left;color:inherit}
+.memory-msg.old.selected{border-color:rgba(198,167,231,.42);box-shadow:0 20px 45px rgba(164,116,204,.14)}
+.memory-star{position:absolute;z-index:4;display:flex;align-items:center;gap:7px;padding:6px;border:0;background:transparent;color:#83728f;font-size:7px;letter-spacing:.08em}
+.memory-star i{position:relative;display:block;width:11px;height:11px;border:1px solid rgba(224,199,255,.65);border-radius:50%;background:#c4a2e8;box-shadow:0 0 15px rgba(199,157,236,.7)}
+.memory-star i::after{content:"";position:absolute;inset:-7px;border:1px solid rgba(202,164,235,.18);border-radius:50%;animation:memoryPulse 2.8s ease-out infinite}
+.memory-star span{opacity:.65;transition:opacity .25s,color .25s}
+.memory-star:hover span,.memory-star.selected span{opacity:1;color:#d5bce9}
+.memory-star.selected i{background:#e4c9ff;box-shadow:0 0 22px #c19ae5}
+.star-one{left:39%;top:12%}.star-two{right:0;top:27%}.star-three{left:26%;bottom:2%}
+#memoryLive{z-index:3}
+#memoryLiveNote{display:block;margin-top:9px;color:#6d5a79;font-size:6px;line-height:1.6}
+.memory-live-updated{animation:memoryLive .5s var(--ease)}
+@keyframes memoryDash{to{stroke-dashoffset:-140}}
+@keyframes memoryPulse{from{opacity:.7;transform:scale(.65)}to{opacity:0;transform:scale(1.8)}}
+@keyframes memoryNebula{to{transform:translate3d(4%,3%,0) scale(1.08)}}
+@keyframes memoryLive{from{opacity:.25;transform:rotate(3deg) translateY(12px)}to{opacity:1;transform:rotate(3deg) translateY(0)}}
+@media(max-width:680px){.memory-star{font-size:6px}.star-one{left:42%}.star-two{right:-3%}.star-three{left:30%}}
+@media(prefers-reduced-motion:reduce){.memory-nebula,.memory-links path,.memory-star i::after{animation:none}}

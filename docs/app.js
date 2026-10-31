@@ -116,10 +116,12 @@ function renderCharacters() {
   document.querySelector('#heroRoster').innerHTML = characters.map((character, index) => `<button class="roster-avatar" type="button" data-roster="${character.id}" title="${character.name}" aria-label="查看${character.name}"><img src="${character.avatar}" alt="" loading="lazy"></button>`).join('');
 }
 
-let activeCharacterIndex = 0;
-function openCharacter(id) {
+let activeCharacterIndex = 0, characterFlight = null;
+function openCharacter(id, sourceCard = null) {
   const character = characters.find(item => item.id === id);
   if (!character) return;
+  const sourceImage = sourceCard?.querySelector('.card-art');
+  const sourceRect = !reduceMotion && sourceImage ? sourceImage.getBoundingClientRect() : null;
   const profile = characterProfiles[id];
   activeCharacterIndex = characters.indexOf(character);
   const index = activeCharacterIndex + 1;
@@ -159,6 +161,27 @@ function openCharacter(id) {
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
   document.body.classList.add('dialog-open');
+  if (sourceRect) {
+    const target = dialog.querySelector('.dialog-portrait img');
+    const targetRect = target.getBoundingClientRect();
+    if (targetRect.width && targetRect.height && typeof target.animate === 'function') {
+      characterFlight?.cancel();
+      const scaleX = sourceRect.width / targetRect.width;
+      const scaleY = sourceRect.height / targetRect.height;
+      const translateX = sourceRect.left - targetRect.left;
+      const translateY = sourceRect.top - targetRect.top;
+      target.style.transformOrigin = 'top left';
+      const flight = target.animate([
+        { transform:`translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`, borderRadius:'24px', opacity:.82 },
+        { transform:'translate(0, 0) scale(1, 1)', borderRadius:'0px', opacity:1 },
+      ], { duration:720, easing:'cubic-bezier(.16,1,.3,1)', fill:'both' });
+      characterFlight = flight;
+      flight.onfinish = () => {
+        flight.cancel();
+        if (characterFlight === flight) characterFlight = null;
+      };
+    }
+  }
 }
 function closeDialog() {
   if (dialog.open) dialog.close();
@@ -171,12 +194,12 @@ let dragged = false;
 grid.addEventListener('click', event => {
   if (dragged) { event.preventDefault(); return; }
   const card = event.target.closest('.character-card');
-  if (card) openCharacter(card.dataset.id);
+  if (card) openCharacter(card.dataset.id, card);
 });
 grid.addEventListener('keydown', event => {
   if (event.key !== 'Enter' && event.key !== ' ') return;
   const card = event.target.closest('.character-card');
-  if (card) { event.preventDefault(); openCharacter(card.dataset.id); }
+  if (card) { event.preventDefault(); openCharacter(card.dataset.id, card); }
 });
 document.querySelector('#dialogClose').addEventListener('click', closeDialog);
 dialog.addEventListener('click', event => {
@@ -332,7 +355,7 @@ const sceneArt = {
   '3901000018':{ symbols:['⌕','⊙','?'], label:'EVERY CLUE TELLS A STORY', texture:'detective', secondary:'#89d8e8' },
   '3901000019':{ symbols:['☾','♢','✦'], label:'WHEN THE NIGHT FINALLY RESTS', texture:'nocturne', secondary:'#7656ad' }
 };
-let portraits = [], activeScene = -1, cinemaFrame = 0;
+let portraits = [], activeScene = -1, cinemaFrame = 0, heroProgress = 0;
 
 function renderHero() {
   heroPortraits.innerHTML = characters.map((character, index) => `
@@ -349,6 +372,8 @@ function updateCinema() {
   const cinematic = cinematicMedia.matches && !reduceMotion;
   const range = Math.max(1, hero.offsetHeight - innerHeight);
   const progress = cinematic ? Math.min(1, Math.max(0, (scrollY - hero.offsetTop) / range)) : 0;
+  heroProgress = progress;
+  hero.style.setProperty('--hero-progress', progress.toFixed(3));
   const position = progress * (characters.length - 1);
   const index = Math.min(characters.length - 1, Math.max(0, Math.round(position)));
   portraits.forEach((portrait, portraitIndex) => {
@@ -652,6 +677,26 @@ function drawCosmos(time = 0) {
     const alpha = reduceMotion ? star.a : star.a * (.65 + Math.sin(time*star.speed + star.phase)*.35);
     context.beginPath(); context.arc(star.x,star.y,star.r,0,Math.PI*2); context.fillStyle = `rgba(224,207,255,${alpha})`; context.fill();
   });
+  if (!reduceMotion && cinematicMedia.matches && heroProgress > 0) {
+    const intensity = Math.sin(heroProgress * Math.PI);
+    const centerX = canvas.clientWidth * .58, centerY = canvas.clientHeight * .44;
+    const radius = Math.min(canvas.clientWidth, canvas.clientHeight) * .75;
+    context.save();
+    context.lineCap = 'round';
+    for (let index = 0; index < 28; index++) {
+      const angle = index / 28 * Math.PI * 2 + heroProgress * .9;
+      const travel = (heroProgress * 1.7 + index / 28) % 1;
+      const inner = travel * radius;
+      const outer = inner + 18 + travel * 75;
+      context.beginPath();
+      context.moveTo(centerX + Math.cos(angle) * inner, centerY + Math.sin(angle) * inner);
+      context.lineTo(centerX + Math.cos(angle) * outer, centerY + Math.sin(angle) * outer);
+      context.strokeStyle = `rgba(211,188,255,${(1 - travel) * intensity * .24})`;
+      context.lineWidth = .6 + travel * 1.1;
+      context.stroke();
+    }
+    context.restore();
+  }
   if (!reduceMotion) {
     if (!shooting && time > nextShoot) shooting = { x:canvas.clientWidth*(.25+Math.random()*.65), y:80+Math.random()*220, life:0 };
     if (shooting) {
@@ -666,6 +711,20 @@ sizeCosmos();
 window.addEventListener('resize', sizeCosmos);
 new IntersectionObserver(entries => { canvasVisible = entries[0].isIntersecting; }).observe(canvas);
 (function cosmosLoop(time) { if (canvasVisible) drawCosmos(time); if (!reduceMotion) requestAnimationFrame(cosmosLoop); })();
+
+// The memory constellation uses explicit demo copy, never real chat history.
+document.querySelectorAll('.memory-choice').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.memory-choice').forEach(node => node.classList.toggle('selected', node === button));
+    document.querySelector('#memoryLiveTitle').textContent = button.dataset.memoryTitle;
+    document.querySelector('#memoryLiveQuote').textContent = button.dataset.memoryQuote;
+    document.querySelector('#memoryLiveNote').textContent = button.dataset.memoryNote;
+    const live = document.querySelector('#memoryLive');
+    live.classList.remove('memory-live-updated');
+    void live.offsetWidth;
+    live.classList.add('memory-live-updated');
+  });
+});
 
 // Community QR preview, tactile cards and reliable group-number copying.
 const qrDialog = document.querySelector('#qrDialog');
