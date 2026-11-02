@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
   "channel": "test",
-  "releasedAt": "2026-10-31",
+  "releasedAt": "2026-11-02",
   "notes": [
-    "每次启动自动检查更新，发现新版本时提醒",
-    "可在设置中关闭自动检查，仍保留手动检查",
-    "新版本仍需用户确认后才会下载"
+    "Windows 与 Android 安装包及包内展示图标统一为星野",
+    "新安装默认模型地址改为 DeepSeek 官方 https://api.deepseek.com",
+    "保留空 API Key，覆盖升级不覆盖现有配置"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.10-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Setup-1.0.0-rc.10-personal-x64.exe",
-      "size": 919180372,
-      "sha256": "8cef33c9785b854ca3f7ca6ee31400a2733394c450884e1963e4856847d8a02a"
+      "version": "1.0.0-rc.11-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.11/Starlit-Setup-1.0.0-rc.11-personal-x64.exe",
+      "size": 919474971,
+      "sha256": "b50c90cbabe54dc4458bdd428c17ac292be831d631d74734e88455794d9b2de2"
     },
     "android": {
-      "version": "1.0.0-rc.10-local",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.10/Starlit-Android-1.0.0-rc.10-local-arm64.apk",
-      "size": 27622095,
-      "sha256": "1e58515c6a091e927aac396e529d9fb9ad7a6e01718f9df272348cddee274624"
+      "version": "1.0.0-rc.11-local",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.11/Starlit-Android-1.0.0-rc.11-local-arm64.apk",
+      "size": 27621771,
+      "sha256": "8127bbf3630fe48f26aaf3b763c1ff53ad3c181d3911bf57a4b15f10bfca7842"
     }
   }
 }
