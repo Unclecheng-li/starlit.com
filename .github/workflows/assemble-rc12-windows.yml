@@ -1,0 +1,28 @@
+name: Assemble RC12 Windows installer
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download, verify, publish and clean up
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo="Unclecheng-li/starlit.com"
+          tag="v1.0.0-rc.12"
+          base="Starlit-Setup-1.0.0-rc.12-personal-x64.exe"
+          for part in 0 1 2 3; do
+            gh release download "$tag" --repo "$repo" --pattern "$base.part$part" --dir . --clobber
+          done
+          cat "$base.part0" "$base.part1" "$base.part2" "$base.part3" > "$base"
+          test "$(stat -c %s "$base")" = "919486116"
+          echo "7a00a82fa068cd2b1f0c0915803508ec6e754c90e799dabd7606450afa895e72  $base" | sha256sum -c -
+          gh release upload "$tag" "$base" --repo "$repo" --clobber
+          for part in 0 1 2 3; do
+            gh release delete-asset "$tag" "$base.part$part" --repo "$repo" --yes
+          done
