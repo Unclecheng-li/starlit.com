@@ -2,7 +2,11 @@
   'use strict';
 
   const API_BASE = String(window.STARLIT_STATS_API || '').replace(/\/$/, '');
-  const RELEASES_URL = 'https://api.github.com/repos/Unclecheng-li/starlit.com/releases?per_page=100';
+  const GITHUB_REPO = 'Unclecheng-li/starlit.com';
+  const RELEASES_URL = `https://api.github.com/repos/${GITHUB_REPO}/releases?per_page=100`;
+  // 国内镜像站（腾讯云 EdgeOne Pages）的域名是 <项目名>.edgeone.app，站点文件与 GitHub 版完全一致。
+  // 镜像上跳过需要访问 api.github.com 的下载统计，避免国内请求长时间挂起。
+  const MIRROR_HOST = /(^|\.)edgeone\.app$/i.test(location.hostname);
   const numberFormat = new Intl.NumberFormat('zh-CN');
   const formatNumber = value => numberFormat.format(Number(value) || 0);
   const byId = id => document.getElementById(id);
@@ -78,6 +82,11 @@
   async function loadPublicDownloads() {
     const target = byId('downloadTotal');
     if (!target) return;
+    if (MIRROR_HOST) {
+      target.textContent = '—';
+      byId('downloadStatNote').textContent = '镜像站 · 下载次数请见 GitHub 原站';
+      return;
+    }
     try {
       const downloads = await fetchDownloads();
       target.textContent = formatNumber(downloads.total);
