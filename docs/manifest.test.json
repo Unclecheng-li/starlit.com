@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
   "channel": "test",
-  "releasedAt": "2026-11-03",
+  "releasedAt": "2026-11-04",
   "notes": [
-    "修复回复重复、角色表情范围、图片发送与清空对话语义",
-    "新增个人资料、角色删除、DeepSeek 配置指引和更明确的认证提示",
-    "Android 内置 Pillow，补齐通知、弹窗返回、图片背景与更新下载修复",
-    "安卓更新使用无跳转 HTTPS 直链，兼容旧版更新器",
-    "蒸馏使用用户选定模型；安卓通知与系统返回仍需真机复核"
+    "新增思考强度、群聊删除、角色卡 JSON 导出与可选多恋人模式",
+    "私聊与群聊可执行明确的跨会话请求，主动消息支持单独开关",
+    "用户昵称进入各角色表达上下文，模型认证与计费错误提示更明确",
+    "Android 增加麦克风权限、图片解码回退、通知清理、键盘适配与前台服务",
+    "Android 图片、语音、通知和后台存活仍需真机复核"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.12-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.12/Starlit-Setup-1.0.0-rc.12-personal-x64.exe",
-      "size": 919486116,
-      "sha256": "7a00a82fa068cd2b1f0c0915803508ec6e754c90e799dabd7606450afa895e72"
+      "version": "1.0.0-rc.13-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.13/Starlit-Setup-1.0.0-rc.13-personal-x64.exe",
+      "size": 919497762,
+      "sha256": "173abd7256045729777d928f7df8339f39531970246972ca140467273a95ec96"
     },
     "android": {
-      "version": "1.0.0-rc.12-local",
-      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.12-local-arm64.apk",
-      "size": 28948975,
-      "sha256": "022e2270b1040178f54f54ce371601cf70269297c38149023805e0e31825682b"
+      "version": "1.0.0-rc.13-local",
+      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.13-local-arm64.apk",
+      "size": 28967947,
+      "sha256": "286bcfc7a6d82d524a799f7f11bcf692a3d6952f1c2987b47b9a1a19bc30ab8a"
     }
   }
 }
