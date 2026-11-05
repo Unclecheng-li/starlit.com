@@ -38,13 +38,13 @@ jobs:
           tag="v1.0.0-rc.14"
           base="Starlit-Setup-1.0.0-rc.14-personal-x64.exe"
           cat > package.json <<'JSON'
+          {"name":"starlit-desktop","version":"1.0.0-rc.14-personal","private":true}
+          JSON
+          cat > electron-builder.json <<'JSON'
           {
-            "name": "starlit-desktop",
-            "version": "1.0.0-rc.14-personal",
-            "private": true,
             "appId": "cn.starlit.companion",
             "productName": "星伴",
-            "artifactName": "Starlit-Setup-${version}-${arch}.${ext}",
+            "artifactName": "Starlit-Setup-1.0.0-rc.14-personal-${arch}.${ext}",
             "directories": {"output": "release"},
             "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "docs/icon.png"},
             "nsis": {
@@ -63,7 +63,7 @@ jobs:
           }
           JSON
           npm install --no-save electron-builder@25.1.8 electron@33.4.11
-          npx electron-builder --win nsis --x64 --prepackaged win-unpacked --config package.json
+          npx electron-builder --win nsis --x64 --prepackaged win-unpacked --config electron-builder.json --publish never
           installer="release/$base"
           test -f "$installer"
           size=$(stat -c %s "$installer")
