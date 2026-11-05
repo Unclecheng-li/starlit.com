@@ -46,7 +46,7 @@ jobs:
             "productName": "星伴",
             "artifactName": "Starlit-Setup-1.0.0-rc.14-personal-${arch}.${ext}",
             "directories": {"output": "release"},
-            "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "docs/icon.png"},
+            "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "assets/installer-icon.ico"},
             "nsis": {
               "oneClick": true,
               "perMachine": false,
@@ -55,9 +55,9 @@ jobs:
               "createStartMenuShortcut": true,
               "shortcutName": "星伴",
               "uninstallDisplayName": "星伴",
-              "installerIcon": "docs/icon.png",
-              "uninstallerIcon": "docs/icon.png",
-              "installerHeaderIcon": "docs/icon.png",
+              "installerIcon": "assets/installer-icon.ico",
+              "uninstallerIcon": "assets/installer-icon.ico",
+              "installerHeaderIcon": "assets/installer-icon.ico",
               "deleteAppDataOnUninstall": false
             }
           }
