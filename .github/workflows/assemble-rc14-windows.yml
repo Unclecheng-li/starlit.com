@@ -42,25 +42,23 @@ jobs:
             "name": "starlit-desktop",
             "version": "1.0.0-rc.14-personal",
             "private": true,
-            "build": {
-              "appId": "cn.starlit.companion",
-              "productName": "星伴",
-              "artifactName": "Starlit-Setup-${version}-${arch}.${ext}",
-              "directories": {"output": "release"},
-              "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "docs/icon.png"},
-              "nsis": {
-                "oneClick": true,
-                "perMachine": false,
-                "allowToChangeInstallationDirectory": false,
-                "createDesktopShortcut": true,
-                "createStartMenuShortcut": true,
-                "shortcutName": "星伴",
-                "uninstallDisplayName": "星伴",
-                "installerIcon": "docs/icon.png",
-                "uninstallerIcon": "docs/icon.png",
-                "installerHeaderIcon": "docs/icon.png",
-                "deleteAppDataOnUninstall": false
-              }
+            "appId": "cn.starlit.companion",
+            "productName": "星伴",
+            "artifactName": "Starlit-Setup-${version}-${arch}.${ext}",
+            "directories": {"output": "release"},
+            "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "docs/icon.png"},
+            "nsis": {
+              "oneClick": true,
+              "perMachine": false,
+              "allowToChangeInstallationDirectory": false,
+              "createDesktopShortcut": true,
+              "createStartMenuShortcut": true,
+              "shortcutName": "星伴",
+              "uninstallDisplayName": "星伴",
+              "installerIcon": "docs/icon.png",
+              "uninstallerIcon": "docs/icon.png",
+              "installerHeaderIcon": "docs/icon.png",
+              "deleteAppDataOnUninstall": false
             }
           }
           JSON
