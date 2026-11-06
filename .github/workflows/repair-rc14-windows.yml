@@ -104,10 +104,24 @@ jobs:
           foreach ($name in @('resources.pak','d3dcompiler_47.dll','resources/app.asar','resources/backend/StarlitBackend.exe')) {
             if (-not (Test-Path -LiteralPath (Join-Path $installDir $name))) { throw "安装后缺少：$name" }
           }
+          Start-Sleep -Seconds 2
           $shortcutPath = Join-Path $env:USERPROFILE 'Desktop/星伴.lnk'
           if (-not (Test-Path -LiteralPath $shortcutPath)) { throw '安装后未创建桌面快捷方式' }
-          $shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($shortcutPath)
-          if ($shortcut.TargetPath -ne $exe) { throw "快捷方式目标错误：$($shortcut.TargetPath)" }
+          $shell = New-Object -ComObject WScript.Shell
+          $shortcut = $shell.CreateShortcut($shortcutPath)
+          $shortcutInfo = Get-Item -LiteralPath $shortcutPath
+          Write-Output "快捷方式文件：$($shortcutInfo.FullName)，$($shortcutInfo.Length) 字节"
+          Write-Output "预期目标：$exe"
+          Write-Output "实际目标：$($shortcut.TargetPath)"
+          Write-Output "启动目录：$($shortcut.WorkingDirectory)"
+          Write-Output "启动参数：$($shortcut.Arguments)"
+          Get-ChildItem -LiteralPath (Split-Path $shortcutPath) -Filter '*.lnk' | ForEach-Object {
+            $item = $shell.CreateShortcut($_.FullName)
+            Write-Output "桌面快捷方式：$($_.Name) -> $($item.TargetPath)"
+          }
+          if (-not $shortcut.TargetPath) { throw '快捷方式目标为空' }
+          if ([IO.Path]::GetFullPath($shortcut.TargetPath) -ne [IO.Path]::GetFullPath($exe)) { throw "快捷方式目标错误：$($shortcut.TargetPath)" }
+          if (-not (Test-Path -LiteralPath $shortcut.TargetPath)) { throw '快捷方式目标文件不存在' }
           Write-Output "快捷方式目标正确：$($shortcut.TargetPath)"
           $env:STARLIT_DATA_ROOT = $dataDir
           $proc = Start-Process -FilePath $exe -ArgumentList @("--user-data-dir=$env:RUNNER_TEMP/starlit-clean-profile") -WorkingDirectory $installDir -PassThru
