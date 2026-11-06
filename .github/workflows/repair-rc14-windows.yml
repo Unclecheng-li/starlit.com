@@ -28,6 +28,7 @@ jobs:
           test -n "$app_archive"
           7z x "$app_archive" -owin-unpacked -y
           test -f "win-unpacked/星伴.exe"
+          mv "win-unpacked/星伴.exe" win-unpacked/Starlit.exe
           test -f win-unpacked/resources.pak
           test -f win-unpacked/locales/zh-CN.pak
           test -f win-unpacked/resources/app.asar
@@ -46,7 +47,7 @@ jobs:
           {
             "appId": "cn.starlit.companion",
             "productName": "星伴",
-            "executableName": "星伴",
+            "executableName": "Starlit",
             "artifactName": "Starlit-Setup-1.0.0-rc.14-personal-${arch}.${ext}",
             "directories": {"output": "release"},
             "win": {"target": [{"target": "nsis", "arch": ["x64"]}], "icon": "assets/installer-icon.ico"},
@@ -79,7 +80,7 @@ jobs:
           app_archive=$(find verify-installer -type f -iname 'app-64.7z' -print -quit)
           test -n "$app_archive"
           7z x "$app_archive" -overify-app -y
-          test -f "verify-app/星伴.exe"
+          test -f "verify-app/Starlit.exe"
           test -f verify-app/resources.pak
           test -f verify-app/locales/zh-CN.pak
           test -f verify-app/d3dcompiler_47.dll
@@ -100,8 +101,8 @@ jobs:
           Remove-Item -LiteralPath $installDir,$dataDir -Recurse -Force -ErrorAction SilentlyContinue
           $setup = Start-Process -FilePath $installer -ArgumentList @('/S','/currentuser',"/D=$installDir") -Wait -PassThru
           if ($setup.ExitCode -ne 0) { throw "安装器退出码：$($setup.ExitCode)" }
-          $exe = Join-Path $installDir '星伴.exe'
-          if (-not (Test-Path -LiteralPath $exe)) { throw '干净安装后未找到星伴.exe' }
+          $exe = Join-Path $installDir 'Starlit.exe'
+          if (-not (Test-Path -LiteralPath $exe)) { throw '干净安装后未找到Starlit.exe' }
           foreach ($name in @('resources.pak','d3dcompiler_47.dll','resources/app.asar','resources/backend/StarlitBackend.exe')) {
             if (-not (Test-Path -LiteralPath (Join-Path $installDir $name))) { throw "安装后缺少：$name" }
           }
@@ -111,7 +112,7 @@ jobs:
           $shortcutInfo = Get-Item -LiteralPath $shortcutPath
           $shortcutText = [Text.Encoding]::Unicode.GetString([IO.File]::ReadAllBytes($shortcutPath))
           Write-Output "快捷方式文件：$($shortcutInfo.FullName)，$($shortcutInfo.Length) 字节"
-          if (-not $shortcutText.Contains('星伴.exe')) { throw '快捷方式内未找到星伴.exe' }
+          if (-not $shortcutText.Contains('Starlit.exe')) { throw '快捷方式内未找到Starlit.exe' }
           if (-not $shortcutText.Contains($installDir)) { throw '快捷方式内未找到本次安装目录' }
           Write-Output '快捷方式内嵌主程序名和安装目录正确，开始通过快捷方式启动'
           $env:STARLIT_DATA_ROOT = $dataDir
