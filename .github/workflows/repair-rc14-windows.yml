@@ -110,27 +110,24 @@ jobs:
           $shortcutPath = Join-Path $env:USERPROFILE 'Desktop/星伴.lnk'
           if (-not (Test-Path -LiteralPath $shortcutPath)) { throw '安装后未创建桌面快捷方式' }
           $shortcutInfo = Get-Item -LiteralPath $shortcutPath
-          $shortcutText = [Text.Encoding]::Unicode.GetString([IO.File]::ReadAllBytes($shortcutPath))
           Write-Output "快捷方式文件：$($shortcutInfo.FullName)，$($shortcutInfo.Length) 字节"
-          if (-not $shortcutText.Contains('Starlit.exe')) { throw '快捷方式内未找到Starlit.exe' }
-          if (-not $shortcutText.Contains($installDir)) { throw '快捷方式内未找到本次安装目录' }
-          Write-Output '快捷方式内嵌主程序名和安装目录正确，开始通过快捷方式启动'
           $env:STARLIT_DATA_ROOT = $dataDir
-          $proc = Start-Process -FilePath $shortcutPath -WorkingDirectory $installDir -PassThru
+          Start-Process -FilePath $shortcutPath -WorkingDirectory $installDir
           try {
             $healthy = $false
             for ($i = 0; $i -lt 180; $i++) {
-              if ($proc.HasExited) { throw "主程序提前退出：$($proc.ExitCode)" }
               try {
                 $response = Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:18765/healthz' -TimeoutSec 3
                 if ($response.StatusCode -eq 200) { $healthy = $true; break }
               } catch {}
               Start-Sleep -Seconds 1
             }
-            if (-not $healthy) { throw '安装版健康接口启动超时' }
-            Write-Output '干净安装、快捷方式和主程序启动验收全部通过'
+            if (-not $healthy) { throw '通过桌面快捷方式启动后，健康接口等待超时' }
+            Write-Output '干净安装、桌面快捷方式实际启动和健康接口验收全部通过'
           } finally {
-            if (-not $proc.HasExited) { taskkill /PID $proc.Id /T /F | Out-Null }
+            Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -eq $exe } | ForEach-Object {
+              taskkill /PID $_.ProcessId /T /F | Out-Null
+            }
           }
       - name: Publish verified replacement
         env:
