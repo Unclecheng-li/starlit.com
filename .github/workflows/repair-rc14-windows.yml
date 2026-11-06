@@ -126,9 +126,10 @@ jobs:
             Write-Output '干净安装、桌面快捷方式实际启动和健康接口验收全部通过'
           } finally {
             Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -eq $exe } | ForEach-Object {
-              taskkill /PID $_.ProcessId /T /F | Out-Null
+              taskkill /PID $_.ProcessId /T /F 2>$null | Out-Null
             }
           }
+          exit 0
       - name: Publish verified replacement
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
