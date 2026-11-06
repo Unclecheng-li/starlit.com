@@ -3,6 +3,7 @@
   "channel": "test",
   "releasedAt": "2026-11-06",
   "notes": [
+    "Windows 修复安装包缺少主程序和快捷方式异常，已通过干净安装、快捷方式启动及健康接口验收",
     "好感随真实私聊自然增长，每自然日最多三点并保留手动调整",
     "支持星伴、chara_card_v1 / v2 与常见 JSON 角色卡，提供本地模板和四套预设",
     "新增 DeepSeek、Qwen、Kimi、GLM 快捷配置与更准确的模型实测诊断",
@@ -14,8 +15,8 @@
     "windows": {
       "version": "1.0.0-rc.14-personal",
       "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.14/Starlit-Setup-1.0.0-rc.14-personal-x64.exe",
-      "size": 954425144,
-      "sha256": "da91f782cf9d3293757b8089a15b48998104cfa0993a6bd83627bb1580c8f677"
+      "size": 919555284,
+      "sha256": "6bdd73156fd32714c2f201563a0ce40d56d55a050636b62aeef979ab8f1fe60b"
     },
     "android": {
       "version": "1.0.0-rc.14-local",
