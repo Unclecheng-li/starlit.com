@@ -3,26 +3,26 @@
   "channel": "test",
   "releasedAt": "2026-11-06",
   "notes": [
-    "DeepSeek 默认模型统一为 deepseek-flash，公开安装预置固定使用官方接口地址",
-    "点击实测模型会先自动保存当前表单，保存成功后才测试，保存失败立即停止",
-    "Windows 安装包已通过全文件比对、干净安装、快捷方式实际启动与健康接口验收",
-    "好感随真实私聊自然增长，每自然日最多三点并保留手动调整",
-    "支持星伴、chara_card_v1 / v2 与常见 JSON 角色卡，提供本地模板和四套预设",
-    "群聊单独点名仍允许另一位成员接话，头像支持资料与戳一戳",
+    "修复角色回复先分条发送、随后又把相同内容合并成一条多行消息重复发送的问题",
+    "只有完全由同批其他分句组成的汇总气泡才会被删除；正常重复短句、含新内容的汇总和普通多行消息均保留",
+    "统一在模型输出解析层清理，私聊、群聊与主动接话共用同一份结果，历史记录不再写入汇总版",
+    "1335 项离线回归、消息发送与历史专项、UI 专项通过",
+    "包含 RC15 的 DeepSeek 默认模型与模型实测保存修复",
+    "Windows 安装包已完成全文件比对、干净安装、桌面快捷方式实际启动、健康接口与默认模型验收",
     "Android 内容、隐私边界与 v2 签名结构已审计；真机运行时仍需设备复核"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.15-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.15/Starlit-Setup-1.0.0-rc.15-personal-x64.exe",
-      "size": 919554829,
-      "sha256": "5e6933a8d1ad852da08527749e203c987469dcc3f37671845e5769c00509dca6"
+      "version": "1.0.0-rc.16-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.16/Starlit-Setup-1.0.0-rc.16-personal-x64.exe",
+      "size": 919429624,
+      "sha256": "8fbfd44ecf08c6d1956a8455be8195c4366e4c6fce1250ff78a47cf415ea772a"
     },
     "android": {
-      "version": "1.0.0-rc.15-local",
-      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.15-local-arm64.apk",
-      "size": 28974747,
-      "sha256": "6eded8eddcd59ef0a1bda7c312a812e32c5338f499972e7930b8a0927237137b"
+      "version": "1.0.0-rc.16-local",
+      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.16-local-arm64.apk",
+      "size": 28974863,
+      "sha256": "7fcc1f6b404bc84554edb319123a02bcad434d7ad9ea25b9eaf89eb7c39be1c7"
     }
   }
 }
