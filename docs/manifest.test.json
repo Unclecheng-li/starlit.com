@@ -1,28 +1,29 @@
 {
   "schemaVersion": 1,
   "channel": "test",
-  "releasedAt": "2026-11-06",
+  "releasedAt": "2026-11-10",
   "notes": [
-    "修复角色回复先分条发送、随后又把相同内容合并成一条多行消息重复发送的问题",
-    "只有完全由同批其他分句组成的汇总气泡才会被删除；正常重复短句、含新内容的汇总和普通多行消息均保留",
-    "统一在模型输出解析层清理，私聊、群聊与主动接话共用同一份结果，历史记录不再写入汇总版",
-    "1335 项离线回归、消息发送与历史专项、UI 专项通过",
-    "包含 RC15 的 DeepSeek 默认模型与模型实测保存修复",
-    "Windows 安装包已完成全文件比对、干净安装、桌面快捷方式实际启动、健康接口与默认模型验收",
-    "Android 内容、隐私边界与 v2 签名结构已审计；真机运行时仍需设备复核"
+    "群号持久化只增不减，删除群后新群不再继承旧号、旧历史或旧群名",
+    "删除回忆时可选择同时清空当前会话；备份每类只保留最近 3 份并支持手动清理",
+    "安卓图片/语音改走 HTTP 上传，新增“同步电脑表情包”（只同步图库，不动聊天）",
+    "新增对话式提醒：10 分钟后提醒我、明早 7 点叫我，可取消、可每日重复",
+    "后台重复消息做前后端双重幂等；通知显示原始消息时间；同步临时包用完即删",
+    "模型兼容：reasoning_effort=none 不再发送；新增兼容模式，可选参数 400/422 自动降级",
+    "群管理员可改群名/发公告，并支持主人发图后由指定管理员换群头像；跨群共享角色近期记忆",
+    "1372 项离线回归、双端构建、Windows 安装/同步验收、Android 图库与签名审计通过；真机运行仍需复核"
   ],
   "platforms": {
     "windows": {
-      "version": "1.0.0-rc.16-personal",
-      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.16/Starlit-Setup-1.0.0-rc.16-personal-x64.exe",
-      "size": 919429624,
-      "sha256": "8fbfd44ecf08c6d1956a8455be8195c4366e4c6fce1250ff78a47cf415ea772a"
+      "version": "1.0.0-rc.17-personal",
+      "url": "https://github.com/Unclecheng-li/starlit.com/releases/download/v1.0.0-rc.17/Starlit-Setup-1.0.0-rc.17-personal-x64.exe",
+      "size": 920102422,
+      "sha256": "fe9728f9f707cec1d38233f17469b252e00e9f38c94d292d68e4e7336b1c70be"
     },
     "android": {
-      "version": "1.0.0-rc.16-local",
-      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.16-local-arm64.apk",
-      "size": 28974863,
-      "sha256": "7fcc1f6b404bc84554edb319123a02bcad434d7ad9ea25b9eaf89eb7c39be1c7"
+      "version": "1.0.0-rc.17-local",
+      "url": "https://unclecheng-li.github.io/starlit.com/downloads/Starlit-Android-1.0.0-rc.17-local-arm64.apk",
+      "size": 29009407,
+      "sha256": "1759682ef2630096800bc177e98de5422b4384e938c156589af2f9f78f1da580"
     }
   }
 }
